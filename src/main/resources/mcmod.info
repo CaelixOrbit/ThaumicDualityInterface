@@ -1,0 +1,21 @@
+{
+	"modListVersion": 2,
+	"modList": [{
+		"modid": "${modId}",
+		"name": "${modName}",
+		"description": "An add-on for the GTNH edition of Thaumic Energistics (Minecraft 1.7.10) that introduces an interface capable of outputting both items and essentia simultaneously for automated alchemy.",
+		"version": "${modVersion}",
+		"mcversion": "${minecraftVersion}",
+		"url": "https://github.com/CaelixOrbit/ThaumicDualityInterface",
+		"updateUrl": "",
+		"authorList": ["Caelix"],
+		"credits": "The GTNH Team for the RetroFuturaGradle toolchain.",
+		"logoFile": "",
+		"screenshots": [],
+		"parent": "",
+		"requiredMods": ["appliedenergistics2", "Thaumcraft", "thaumicenergistics"],
+		"dependencies": [],
+		"dependants": [],
+		"useDependencyInformation": true
+	}]
+}

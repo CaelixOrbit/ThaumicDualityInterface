@@ -1,0 +1,10 @@
+# 源质接口界面
+gui.ThaumicDualityInterface.interface=源质接口
+
+# 方块界面的 6 个方向缩写 (对应: 下, 上, 北, 南, 西, 东)
+gui.ThaumicDualityInterface.interface.dir.0=下
+gui.ThaumicDualityInterface.interface.dir.1=上
+gui.ThaumicDualityInterface.interface.dir.2=北
+gui.ThaumicDualityInterface.interface.dir.3=南
+gui.ThaumicDualityInterface.interface.dir.4=西
+gui.ThaumicDualityInterface.interface.dir.5=东

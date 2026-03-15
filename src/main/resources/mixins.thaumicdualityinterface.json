@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "minVersion": "0.7.11",
+  "package": "ThaumicDualityInterface.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinDualityInterface"
+  ],
+  "client": [],
+  "server": []
+}
