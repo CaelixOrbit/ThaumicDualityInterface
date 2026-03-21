@@ -47,7 +47,6 @@ public class ThaumicDualityInterface {
     public void init(FMLInitializationEvent event) {
         proxy.init(event);
         NetworkRegistry.INSTANCE.registerGuiHandler(ThaumicDualityInterface.INSTANCE, new InventoryHandler());
-        MinecraftForgeClient.registerItemRenderer(ItemAndBlockHolder.ESSENTIA_PACKET, new RenderItemEssentiaPacket());
         ItemAndBlockHolder.init();
     }
 
