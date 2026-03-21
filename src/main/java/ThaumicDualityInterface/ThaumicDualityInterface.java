@@ -1,11 +1,8 @@
 package ThaumicDualityInterface;
 
-import net.minecraftforge.client.MinecraftForgeClient;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import ThaumicDualityInterface.client.render.RenderItemEssentiaPacket;
 import ThaumicDualityInterface.inventory.InventoryHandler;
 import ThaumicDualityInterface.loader.ItemAndBlockHolder;
 import ThaumicDualityInterface.proxy.CommonProxy;
