@@ -1,15 +1,16 @@
 package ThaumicDualityInterface.client.render;
 
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import ThaumicDualityInterface.client.textures.TDIPartsTexture;
 import ThaumicDualityInterface.common.block.BlockEssentiaInterface;
 import ThaumicDualityInterface.common.tile.TileEssentiaInterface;
 import appeng.client.render.BaseBlockRender;
 import appeng.client.render.BlockRenderInfo;
 import appeng.tile.misc.TileInterface;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class RenderBlockEssentiaInterface extends BaseBlockRender<BlockEssentiaInterface, TileEssentiaInterface> {
 

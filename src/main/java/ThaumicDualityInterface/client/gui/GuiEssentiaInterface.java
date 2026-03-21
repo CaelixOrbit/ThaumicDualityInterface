@@ -1,5 +1,15 @@
 package ThaumicDualityInterface.client.gui;
 
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
+import com.glodblock.github.FluidCraft;
+import com.glodblock.github.inventory.gui.MouseRegionManager;
+
 import ThaumicDualityInterface.client.gui.container.ContainerEssentiaInterface;
 import ThaumicDualityInterface.common.parts.PartEssentiaInterface;
 import ThaumicDualityInterface.inventory.AEEssentiaInventory;
@@ -8,13 +18,6 @@ import ThaumicDualityInterface.inventory.gui.EssentiaTankMouseHandler;
 import ThaumicDualityInterface.util.RenderUtil;
 import appeng.client.gui.GuiSub;
 import appeng.core.localization.GuiText;
-import com.glodblock.github.FluidCraft;
-import com.glodblock.github.inventory.gui.MouseRegionManager;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
 public class GuiEssentiaInterface extends GuiSub {

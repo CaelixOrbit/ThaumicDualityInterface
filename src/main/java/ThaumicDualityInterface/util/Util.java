@@ -1,17 +1,18 @@
 package ThaumicDualityInterface.util;
 
+import java.io.IOException;
+import java.util.Map;
+
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+
 import ThaumicDualityInterface.common.item.ItemEssentiaPacket;
 import ThaumicDualityInterface.inventory.IAEEssentiaTank;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IEssentiaContainerItem;
 import thaumicenergistics.common.storage.AEEssentiaStack;
-
-import java.io.IOException;
-import java.util.Map;
 
 public class Util {
 

@@ -1,7 +1,8 @@
 package ThaumicDualityInterface;
 
-import ThaumicDualityInterface.client.render.RenderItemEssentiaPacket;
-import ThaumicDualityInterface.common.item.ItemEssentiaPacket;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import ThaumicDualityInterface.inventory.InventoryHandler;
 import ThaumicDualityInterface.loader.ItemAndBlockHolder;
 import ThaumicDualityInterface.proxy.CommonProxy;
@@ -12,9 +13,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import net.minecraftforge.client.MinecraftForgeClient;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Mod(
     modid = ThaumicDualityInterface.MODID,
@@ -46,10 +44,6 @@ public class ThaumicDualityInterface {
     public void init(FMLInitializationEvent event) {
         proxy.init(event);
         NetworkRegistry.INSTANCE.registerGuiHandler(ThaumicDualityInterface.INSTANCE, new InventoryHandler());
-        MinecraftForgeClient.registerItemRenderer(
-            ItemAndBlockHolder.ESSENTIA_PACKET,
-            new RenderItemEssentiaPacket()
-        );
         ItemAndBlockHolder.init();
     }
 

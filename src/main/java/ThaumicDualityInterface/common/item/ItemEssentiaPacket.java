@@ -203,8 +203,7 @@ public class ItemEssentiaPacket extends FCBaseItem {
 
     @Override
     public ItemEssentiaPacket register() {
-        GameRegistry
-            .registerItem(this, "item.ThaumicDualityInterface.essentia_packet", ThaumicDualityInterface.MODID);
+        GameRegistry.registerItem(this, "item.ThaumicDualityInterface.essentia_packet", ThaumicDualityInterface.MODID);
         return this;
     }
 }

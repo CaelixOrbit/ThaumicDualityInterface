@@ -1,5 +1,13 @@
 package ThaumicDualityInterface.client.gui.container;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.IInventory;
+
 import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.common.item.ItemEssentiaPacket;
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
@@ -7,14 +15,7 @@ import ThaumicDualityInterface.inventory.slot.OptionalEssentiaSlotFakeTypeOnly;
 import ThaumicDualityInterface.network.SPacketEssentiaUpdate;
 import appeng.container.ContainerSubGui;
 import appeng.container.slot.IOptionalSlotHost;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.IInventory;
 import thaumicenergistics.common.storage.AEEssentiaStack;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ContainerEssentiaInterface extends ContainerSubGui implements IOptionalSlotHost {
 

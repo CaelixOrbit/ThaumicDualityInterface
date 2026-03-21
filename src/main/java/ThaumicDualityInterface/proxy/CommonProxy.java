@@ -1,5 +1,7 @@
 package ThaumicDualityInterface.proxy;
 
+import com.glodblock.github.network.wrapper.FCNetworkWrapper;
+
 import ThaumicDualityInterface.Config;
 import ThaumicDualityInterface.Tags;
 import ThaumicDualityInterface.ThaumicDualityInterface;
@@ -7,7 +9,6 @@ import ThaumicDualityInterface.network.CPacketEssentiaButtonUpdate;
 import ThaumicDualityInterface.network.CPacketSwitchEssentiaGuis;
 import ThaumicDualityInterface.network.SPacketEssentiaButtonUpdate;
 import ThaumicDualityInterface.network.SPacketEssentiaUpdate;
-import com.glodblock.github.network.wrapper.FCNetworkWrapper;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -42,12 +43,9 @@ public class CommonProxy {
         ThaumicDualityInterface.LOG.info("I am ThaumicDualityInterface at version " + Tags.VERSION);
     }
 
-    public void init(FMLInitializationEvent event) {
-    }
+    public void init(FMLInitializationEvent event) {}
 
-    public void postInit(FMLPostInitializationEvent event) {
-    }
+    public void postInit(FMLPostInitializationEvent event) {}
 
-    public void serverStarting(FMLServerStartingEvent event) {
-    }
+    public void serverStarting(FMLServerStartingEvent event) {}
 }
