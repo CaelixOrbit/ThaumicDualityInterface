@@ -1,10 +1,12 @@
 package ThaumicDualityInterface.mixin;
 
-import appeng.api.parts.IPart;
-import appeng.tile.networking.TileCableBus;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+
+import appeng.api.parts.IPart;
+import appeng.tile.networking.TileCableBus;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.IEssentiaTransport;
 

@@ -1,5 +1,14 @@
 package ThaumicDualityInterface.client;
 
+import java.util.List;
+
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
+
+import org.lwjgl.input.Mouse;
+
 import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.loader.ItemAndBlockHolder;
 import ThaumicDualityInterface.network.CPacketEssentiaButtonUpdate;
@@ -14,13 +23,6 @@ import appeng.helpers.ICustomButtonDataObject;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
-import org.lwjgl.input.Mouse;
-
-import java.util.List;
 
 public class EssentiaInterfaceButtons implements ICustomButtonDataObject {
 
@@ -36,7 +38,7 @@ public class EssentiaInterfaceButtons implements ICustomButtonDataObject {
     @SideOnly(Side.CLIENT)
     @Override
     public void initCustomButtons(int guiLeft, int guiTop, int xSize, int ySize, int xOffset, int yOffset,
-                                  List<GuiButton> buttonList) {
+        List<GuiButton> buttonList) {
         if (fullBlock) {
             this.sidelessMode = new GuiImgButton(
                 guiLeft - 18,
@@ -72,12 +74,10 @@ public class EssentiaInterfaceButtons implements ICustomButtonDataObject {
     }
 
     @Override
-    public void readData(NBTTagCompound tag) {
-    }
+    public void readData(NBTTagCompound tag) {}
 
     @Override
-    public void writeData(NBTTagCompound tag) {
-    }
+    public void writeData(NBTTagCompound tag) {}
 
     @Override
     public void readByte(ByteBuf buf) {

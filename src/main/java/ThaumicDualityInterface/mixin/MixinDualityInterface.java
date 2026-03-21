@@ -1,5 +1,19 @@
 package ThaumicDualityInterface.mixin;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.ItemStack;
+
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
 import ThaumicDualityInterface.common.item.ItemEssentiaPacket;
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.util.DualityEssentiaInterface;
@@ -9,19 +23,7 @@ import appeng.api.storage.data.IAEStack;
 import appeng.helpers.DualityInterface;
 import appeng.helpers.IInterfaceHost;
 import appeng.util.inv.MEInventoryCrafting;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.ItemStack;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import thaumicenergistics.common.storage.AEEssentiaStack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Mixin(value = DualityInterface.class, remap = false)
 public abstract class MixinDualityInterface {

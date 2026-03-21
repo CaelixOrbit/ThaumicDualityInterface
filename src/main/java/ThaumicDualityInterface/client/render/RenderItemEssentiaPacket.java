@@ -1,13 +1,15 @@
 package ThaumicDualityInterface.client.render;
 
-import ThaumicDualityInterface.common.item.ItemEssentiaPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
+import ThaumicDualityInterface.common.item.ItemEssentiaPacket;
 import thaumcraft.api.aspects.Aspect;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
@@ -58,12 +60,7 @@ public class RenderItemEssentiaPacket implements IItemRenderer {
                 GL11.glTranslated(-0.5, -0.25, 0);
             }
 
-            ItemRenderer.renderItemIn2D(
-                t,
-                1.0F, 0.0F, 0.0F, 1.0F,
-                32, 32,
-                0.0625F
-            );
+            ItemRenderer.renderItemIn2D(t, 1.0F, 0.0F, 0.0F, 1.0F, 32, 32, 0.0625F);
         }
 
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);

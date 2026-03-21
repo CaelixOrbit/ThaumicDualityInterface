@@ -1,7 +1,9 @@
 package ThaumicDualityInterface.util;
 
 import net.minecraft.client.gui.Gui;
+
 import org.jetbrains.annotations.Nullable;
+
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
 public class RenderUtil {

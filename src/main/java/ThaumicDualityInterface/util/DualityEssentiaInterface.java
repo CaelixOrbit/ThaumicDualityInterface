@@ -1,5 +1,22 @@
 package ThaumicDualityInterface.util;
 
+import static appeng.util.item.AEFluidStackType.FLUID_STACK_TYPE;
+import static appeng.util.item.AEItemStackType.ITEM_STACK_TYPE;
+import static thaumicenergistics.common.storage.AEEssentiaStackType.ESSENTIA_STACK_TYPE;
+
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Map;
+
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import ThaumicDualityInterface.common.item.ItemEssentiaPacket;
 import ThaumicDualityInterface.inventory.AEEssentiaInventory;
 import ThaumicDualityInterface.inventory.IAEEssentiaInventory;
@@ -32,26 +49,11 @@ import appeng.me.storage.NullInventory;
 import appeng.util.ConfigManager;
 import appeng.util.IConfigManagerHost;
 import appeng.util.Platform;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
 import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumicenergistics.common.storage.AEEssentiaStack;
-
-import java.util.IdentityHashMap;
-import java.util.List;
-import java.util.Map;
-
-import static appeng.util.item.AEFluidStackType.FLUID_STACK_TYPE;
-import static appeng.util.item.AEItemStackType.ITEM_STACK_TYPE;
-import static thaumicenergistics.common.storage.AEEssentiaStackType.ESSENTIA_STACK_TYPE;
 
 public class DualityEssentiaInterface implements IGridTickable, IStorageMonitorable, IAEEssentiaInventory,
     IUpgradeableHost, IConfigManagerHost, IAspectContainer, IEssentiaTransport {
