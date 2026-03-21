@@ -36,8 +36,8 @@ public class ThaumicDualityInterface {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        proxy.preInit(event);
         ItemAndBlockHolder.preInit();
+        proxy.preInit(event);
     }
 
     @Mod.EventHandler
