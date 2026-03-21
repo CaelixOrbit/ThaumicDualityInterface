@@ -209,102 +209,106 @@ public class PartEssentiaInterface extends PartInterface implements IDualEssenti
 
     @Override
     public AspectList getAspects() {
-        return new AspectList();
+        return essentiaDuality.getAspects();
     }
 
     @Override
-    public void setAspects(AspectList aspects) {}
+    public void setAspects(AspectList aspects) {
+        essentiaDuality.setAspects(aspects);
+    }
 
     @Override
     public boolean doesContainerAccept(Aspect tag) {
-        return false;
+        return essentiaDuality.doesContainerAccept(tag);
     }
 
     @Override
     public int addToContainer(Aspect tag, int amount) {
-        return 0;
+        return essentiaDuality.addToContainer(tag, amount);
     }
 
     @Override
     public boolean takeFromContainer(Aspect tag, int amount) {
-        return false;
+        return essentiaDuality.takeFromContainer(tag, amount);
     }
 
     @Override
     public boolean takeFromContainer(AspectList ot) {
-        return false;
+        return essentiaDuality.takeFromContainer(ot);
     }
 
     @Override
     public boolean doesContainerContainAmount(Aspect tag, int amount) {
-        return false;
+        return essentiaDuality.doesContainerContainAmount(tag, amount);
     }
 
     @Override
     public boolean doesContainerContain(AspectList ot) {
-        return false;
+        return essentiaDuality.doesContainerContain(ot);
     }
 
     @Override
     public int containerContains(Aspect tag) {
-        return 0;
+        return essentiaDuality.containerContains(tag);
     }
 
     @Override
     public boolean isConnectable(ForgeDirection face) {
-        return false;
+        return essentiaDuality.isConnectable(face);
     }
 
     @Override
     public boolean canInputFrom(ForgeDirection face) {
-        return false;
+        return essentiaDuality.canInputFrom(face);
     }
 
     @Override
     public boolean canOutputTo(ForgeDirection face) {
-        return false;
+        return essentiaDuality.canOutputTo(face);
     }
 
     @Override
-    public void setSuction(Aspect aspect, int amount) {}
+    public void setSuction(Aspect aspect, int amount) {
+        essentiaDuality.setSuction(aspect, amount);
+    }
 
     @Override
     public Aspect getSuctionType(ForgeDirection face) {
-        return null;
+        return essentiaDuality.getSuctionType(face);
     }
 
     @Override
     public int getSuctionAmount(ForgeDirection face) {
-        return 0;
+        return essentiaDuality.getSuctionAmount(face);
     }
 
     @Override
     public int takeEssentia(Aspect aspect, int amount, ForgeDirection face) {
-        return 0;
+        return essentiaDuality.takeEssentia(aspect, amount, face);
     }
 
     @Override
     public int addEssentia(Aspect aspect, int amount, ForgeDirection face) {
-        return 0;
+        return essentiaDuality.addEssentia(aspect, amount, face);
     }
 
     @Override
     public Aspect getEssentiaType(ForgeDirection forgeDirection) {
-        return null;
+        return essentiaDuality.getEssentiaType(forgeDirection);
     }
 
     @Override
     public int getEssentiaAmount(ForgeDirection forgeDirection) {
-        return 0;
+        return essentiaDuality.getEssentiaAmount(forgeDirection);
     }
 
     @Override
     public int getMinimumSuction() {
-        return 0;
+        return essentiaDuality.getMinimumSuction();
     }
 
     @Override
     public boolean renderExtendedTube() {
-        return false;
+        return essentiaDuality.renderExtendedTube();
     }
 }
