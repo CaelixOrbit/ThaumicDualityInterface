@@ -17,6 +17,7 @@ import appeng.tile.inventory.AppEngInternalInventory;
 import appeng.tile.inventory.IAEAppEngInventory;
 import appeng.tile.inventory.InvOperation;
 import appeng.util.Platform;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.aspects.Aspect;
@@ -24,7 +25,7 @@ import thaumicenergistics.common.storage.AEEssentiaStack;
 
 import static thaumicenergistics.common.storage.AEEssentiaStackType.ESSENTIA_STACK_TYPE;
 
-public class TileEssentiaPacketDecoder extends AENetworkTile implements IGridTickable, IAEAppEngInventory {
+public class TileEssentiaPacketDecoder extends AENetworkTile implements IGridTickable, IAEAppEngInventory, IInventory {
     private final AppEngInternalInventory inventory = new AppEngInternalInventory(this, 1);
     private final BaseActionSource ownActionSource = new MachineSource(this);
 
@@ -73,5 +74,65 @@ public class TileEssentiaPacketDecoder extends AENetworkTile implements IGridTic
         } catch (GridAccessException e) {
             // NO-OP
         }
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return inventory.getSizeInventory();
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int slotIn) {
+        return inventory.getStackInSlot(slotIn);
+    }
+
+    @Override
+    public ItemStack decrStackSize(int index, int count) {
+        return inventory.decrStackSize(index, count);
+    }
+
+    @Override
+    public ItemStack getStackInSlotOnClosing(int index) {
+        return inventory.getStackInSlotOnClosing(index);
+    }
+
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        inventory.setInventorySlotContents(index, stack);
+    }
+
+    @Override
+    public String getInventoryName() {
+        return inventory.getInventoryName();
+    }
+
+    @Override
+    public boolean hasCustomInventoryName() {
+        return inventory.hasCustomInventoryName();
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return inventory.getInventoryStackLimit();
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer player) {
+        return inventory.isUseableByPlayer(player);
+    }
+
+    @Override
+    public void openInventory() {
+        inventory.openInventory();
+    }
+
+    @Override
+    public void closeInventory() {
+        inventory.closeInventory();
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+        return inventory.isItemValidForSlot(index, stack);
     }
 }
