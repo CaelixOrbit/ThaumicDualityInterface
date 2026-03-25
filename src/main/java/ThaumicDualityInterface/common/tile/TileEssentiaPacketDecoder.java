@@ -20,12 +20,16 @@ import appeng.util.Platform;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.IAspectSource;
+import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
 import static thaumicenergistics.common.storage.AEEssentiaStackType.ESSENTIA_STACK_TYPE;
 
-public class TileEssentiaPacketDecoder extends AENetworkTile implements IGridTickable, IAEAppEngInventory, IInventory {
+public class TileEssentiaPacketDecoder extends AENetworkTile implements IGridTickable, IAEAppEngInventory, IInventory, IEssentiaTransport, IAspectSource {
     private final AppEngInternalInventory inventory = new AppEngInternalInventory(this, 1);
     private final BaseActionSource ownActionSource = new MachineSource(this);
 
@@ -134,5 +138,151 @@ public class TileEssentiaPacketDecoder extends AENetworkTile implements IGridTic
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         return inventory.isItemValidForSlot(index, stack);
+    }
+
+    @Override
+    public boolean isConnectable(ForgeDirection face) {
+        return true;
+    }
+
+    @Override
+    public boolean canInputFrom(ForgeDirection face) {
+        return false;
+    }
+
+    @Override
+    public boolean canOutputTo(ForgeDirection face) {
+        return true;
+    }
+
+    @Override
+    public void setSuction(Aspect aspect, int suction) {
+
+    }
+
+    @Override
+    public Aspect getSuctionType(ForgeDirection face) {
+        ItemStack packet = this.inventory.getStackInSlot(0);
+        return packet != null ? ItemEssentiaPacket.getAspect(packet) : null;
+    }
+
+    @Override
+    public int getSuctionAmount(ForgeDirection face) {
+        return 0;
+    }
+
+    @Override
+    public int takeEssentia(Aspect aspect, int amount, ForgeDirection face) {
+        ItemStack packet = this.inventory.getStackInSlot(0);
+        if (packet != null) {
+            Aspect packetAspect = ItemEssentiaPacket.getAspect(packet);
+            long packetAmount = ItemEssentiaPacket.getEssentiaAmount(packet);
+
+            if (packetAspect != null && packetAspect == aspect) {
+                int take = (int) Math.min((long) amount, packetAmount);
+
+                packetAmount -= take;
+
+                if (packetAmount <= 0) {
+                    this.inventory.setInventorySlotContents(0, null);
+                } else {
+                    this.inventory.setInventorySlotContents(0, ItemEssentiaPacket.newStack(packetAspect, packetAmount));
+                }
+                return take;
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public int addEssentia(Aspect aspect, int amount, ForgeDirection face) {
+        return 0;
+    }
+
+    @Override
+    public Aspect getEssentiaType(ForgeDirection face) {
+        ItemStack packet = this.inventory.getStackInSlot(0);
+        return packet != null ? ItemEssentiaPacket.getAspect(packet) : null;
+    }
+
+    @Override
+    public int getEssentiaAmount(ForgeDirection face) {
+        ItemStack packet = this.inventory.getStackInSlot(0);
+        if (packet != null) {
+            long amount = ItemEssentiaPacket.getEssentiaAmount(packet);
+            return amount > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) amount;
+        }
+        return 0;
+    }
+
+    @Override
+    public int getMinimumSuction() {
+        return 0;
+    }
+
+    @Override
+    public boolean renderExtendedTube() {
+        return false;
+    }
+
+    @Override
+    public AspectList getAspects() {
+        ItemStack packet = this.inventory.getStackInSlot(0);
+        if (packet != null) {
+            Aspect aspect = ItemEssentiaPacket.getAspect(packet);
+            long amount = ItemEssentiaPacket.getEssentiaAmount(packet);
+            if (aspect != null && amount > 0) {
+                return new AspectList().add(aspect, amount > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) amount);
+            }
+        }
+        return new AspectList();
+
+    }
+
+    @Override
+    public void setAspects(AspectList aspects) {
+
+    }
+
+    @Override
+    public boolean doesContainerAccept(Aspect tag) {
+        return false;
+    }
+
+    @Override
+    public int addToContainer(Aspect tag, int amount) {
+        return amount;
+    }
+
+    @Override
+    public boolean takeFromContainer(Aspect tag, int amount) {
+        return this.takeEssentia(tag, amount, ForgeDirection.UNKNOWN) == amount;
+    }
+
+    @Override
+    public boolean takeFromContainer(AspectList aspectList) {
+        return false;
+    }
+
+    @Override
+    public boolean doesContainerContainAmount(Aspect tag, int amount) {
+        return this.getEssentiaAmount(ForgeDirection.UNKNOWN) >= amount
+            && this.getEssentiaType(ForgeDirection.UNKNOWN) == tag;
+    }
+
+    @Override
+    public boolean doesContainerContain(AspectList ot) {
+        for (Aspect aspect : ot.getAspects()) {
+            if (this.getEssentiaAmount(ForgeDirection.UNKNOWN) > 0
+                && this.getEssentiaType(ForgeDirection.UNKNOWN) == aspect) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int containerContains(Aspect tag) {
+        return this.getEssentiaType(ForgeDirection.UNKNOWN) == tag ? this.getEssentiaAmount(ForgeDirection.UNKNOWN) : 0;
     }
 }
