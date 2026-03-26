@@ -2,6 +2,7 @@ package ThaumicDualityInterface.common.tile;
 
 
 import ThaumicDualityInterface.common.item.ItemEssentiaPacket;
+import appeng.api.networking.GridFlags;
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.energy.IEnergyGrid;
 import appeng.api.networking.security.BaseActionSource;
@@ -11,7 +12,10 @@ import appeng.api.networking.ticking.IGridTickable;
 import appeng.api.networking.ticking.TickRateModulation;
 import appeng.api.networking.ticking.TickingRequest;
 import appeng.api.storage.IMEMonitor;
+import appeng.helpers.Reflected;
 import appeng.me.GridAccessException;
+import appeng.tile.TileEvent;
+import appeng.tile.events.TileEventType;
 import appeng.tile.grid.AENetworkTile;
 import appeng.tile.inventory.AppEngInternalInventory;
 import appeng.tile.inventory.IAEAppEngInventory;
@@ -20,6 +24,7 @@ import appeng.util.Platform;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -32,6 +37,27 @@ import static thaumicenergistics.common.storage.AEEssentiaStackType.ESSENTIA_STA
 public class TileEssentiaPacketDecoder extends AENetworkTile implements IGridTickable, IAEAppEngInventory, IInventory, IEssentiaTransport, IAspectSource {
     private final AppEngInternalInventory inventory = new AppEngInternalInventory(this, 1);
     private final BaseActionSource ownActionSource = new MachineSource(this);
+
+    @Reflected
+    public TileEssentiaPacketDecoder() {
+        getProxy().setIdlePowerUsage(1.0D);
+        getProxy().setFlags(GridFlags.REQUIRE_CHANNEL);
+    }
+
+    public IInventory getInventory() {
+        return inventory;
+    }
+
+    @TileEvent(TileEventType.WORLD_NBT_WRITE)
+    public NBTTagCompound writeToNBTEvent(NBTTagCompound data) {
+        inventory.writeToNBT(data, "Inventory");
+        return data;
+    }
+
+    @TileEvent(TileEventType.WORLD_NBT_READ)
+    public void readFromNBTEvent(NBTTagCompound data) {
+        inventory.readFromNBT(data, "Inventory");
+    }
 
     @Override
     public TickingRequest getTickingRequest(IGridNode node) {
