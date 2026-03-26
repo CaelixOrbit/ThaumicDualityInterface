@@ -73,6 +73,7 @@ public class TileEssentiaPacketDecoder extends AENetworkTile implements IGridTic
 
     @Override
     public void onChangeInventory(IInventory inv, int slot, InvOperation mc, ItemStack removedStack, ItemStack newStack) {
+        this.markDirty();
         try {
             getProxy().getTick().alertDevice(getProxy().getNode());
         } catch (GridAccessException e) {
@@ -137,7 +138,7 @@ public class TileEssentiaPacketDecoder extends AENetworkTile implements IGridTic
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return inventory.isItemValidForSlot(index, stack);
+        return stack != null && stack.getItem() instanceof ItemEssentiaPacket;
     }
 
     @Override
