@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import ThaumicDualityInterface.client.gui.GuiEssentiaPacketDecoder;
+import ThaumicDualityInterface.client.gui.container.ContainerEssentiaPacketDecoder;
+import ThaumicDualityInterface.common.tile.TileEssentiaPacketDecoder;
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.glodblock.github.inventory.gui.IGuiFactory;
@@ -25,6 +28,19 @@ public enum GuiType {
         @Override
         protected Object createClientGui(EntityPlayer player, IDualEssentiaHost inv) {
             return new GuiEssentiaInterface(player.inventory, inv);
+        }
+    }),
+
+    ESSENTIA_PACKET_DECODER(new TDITileGuiFactory<>(TileEssentiaPacketDecoder.class) {
+
+        @Override
+        protected Object createServerGui(EntityPlayer player, TileEssentiaPacketDecoder inv) {
+            return new ContainerEssentiaPacketDecoder(player.inventory, inv);
+        }
+
+        @Override
+        protected Object createClientGui(EntityPlayer player, TileEssentiaPacketDecoder inv) {
+            return new GuiEssentiaPacketDecoder(player.inventory, inv);
         }
     });
 
