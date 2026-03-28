@@ -10,7 +10,10 @@ import com.glodblock.github.inventory.gui.IGuiFactory;
 import com.google.common.collect.ImmutableList;
 
 import ThaumicDualityInterface.client.gui.GuiEssentiaInterface;
+import ThaumicDualityInterface.client.gui.GuiEssentiaPacketDecoder;
 import ThaumicDualityInterface.client.gui.container.ContainerEssentiaInterface;
+import ThaumicDualityInterface.client.gui.container.ContainerEssentiaPacketDecoder;
+import ThaumicDualityInterface.common.tile.TileEssentiaPacketDecoder;
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 
 public enum GuiType {
@@ -25,6 +28,19 @@ public enum GuiType {
         @Override
         protected Object createClientGui(EntityPlayer player, IDualEssentiaHost inv) {
             return new GuiEssentiaInterface(player.inventory, inv);
+        }
+    }),
+
+    ESSENTIA_PACKET_DECODER(new TDITileGuiFactory<>(TileEssentiaPacketDecoder.class) {
+
+        @Override
+        protected Object createServerGui(EntityPlayer player, TileEssentiaPacketDecoder inv) {
+            return new ContainerEssentiaPacketDecoder(player.inventory, inv);
+        }
+
+        @Override
+        protected Object createClientGui(EntityPlayer player, TileEssentiaPacketDecoder inv) {
+            return new GuiEssentiaPacketDecoder(player.inventory, inv);
         }
     });
 
