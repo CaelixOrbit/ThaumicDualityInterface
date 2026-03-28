@@ -1,5 +1,12 @@
 package ThaumicDualityInterface.common.tile;
 
+import static thaumicenergistics.common.storage.AEEssentiaStackType.ESSENTIA_STACK_TYPE;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import ThaumicDualityInterface.common.item.ItemEssentiaPacket;
 import appeng.api.networking.GridFlags;
@@ -21,20 +28,15 @@ import appeng.tile.inventory.AppEngInternalInventory;
 import appeng.tile.inventory.IAEAppEngInventory;
 import appeng.tile.inventory.InvOperation;
 import appeng.util.Platform;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectSource;
 import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
-import static thaumicenergistics.common.storage.AEEssentiaStackType.ESSENTIA_STACK_TYPE;
+public class TileEssentiaPacketDecoder extends AENetworkTile
+    implements IGridTickable, IAEAppEngInventory, IInventory, IEssentiaTransport, IAspectSource {
 
-public class TileEssentiaPacketDecoder extends AENetworkTile implements IGridTickable, IAEAppEngInventory, IInventory, IEssentiaTransport, IAspectSource {
     private final AppEngInternalInventory inventory = new AppEngInternalInventory(this, 1);
     private final BaseActionSource ownActionSource = new MachineSource(this);
 
@@ -79,8 +81,11 @@ public class TileEssentiaPacketDecoder extends AENetworkTile implements IGridTic
 
         AEEssentiaStack aeEssentia = ItemEssentiaPacket.getEssentiaAEStack(stack);
 
-        IEnergyGrid energyGrid = node.getGrid().getCache(IEnergyGrid.class);
-        IMEMonitor<AEEssentiaStack> essentiaGrid = (IMEMonitor<AEEssentiaStack>) node.getGrid().<IStorageGrid>getCache(IStorageGrid.class).getMEMonitor(ESSENTIA_STACK_TYPE);
+        IEnergyGrid energyGrid = node.getGrid()
+            .getCache(IEnergyGrid.class);
+        IMEMonitor<AEEssentiaStack> essentiaGrid = (IMEMonitor<AEEssentiaStack>) node.getGrid()
+            .<IStorageGrid>getCache(IStorageGrid.class)
+            .getMEMonitor(ESSENTIA_STACK_TYPE);
 
         AEEssentiaStack remaining = Platform.poweredInsert(energyGrid, essentiaGrid, aeEssentia, ownActionSource);
 
@@ -98,10 +103,12 @@ public class TileEssentiaPacketDecoder extends AENetworkTile implements IGridTic
     }
 
     @Override
-    public void onChangeInventory(IInventory inv, int slot, InvOperation mc, ItemStack removedStack, ItemStack newStack) {
+    public void onChangeInventory(IInventory inv, int slot, InvOperation mc, ItemStack removedStack,
+        ItemStack newStack) {
         this.markDirty();
         try {
-            getProxy().getTick().alertDevice(getProxy().getNode());
+            getProxy().getTick()
+                .alertDevice(getProxy().getNode());
         } catch (GridAccessException e) {
             // NO-OP
         }

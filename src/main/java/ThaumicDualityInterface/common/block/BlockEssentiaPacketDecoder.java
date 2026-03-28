@@ -32,7 +32,7 @@ public class BlockEssentiaPacketDecoder extends TDIBaseBlock {
 
     @Override
     public boolean onActivated(World world, int x, int y, int z, EntityPlayer player, int facing, float hitX,
-            float hitY, float hitZ) {
+        float hitY, float hitZ) {
         if (player.isSneaking()) {
             return false;
         }
@@ -40,11 +40,11 @@ public class BlockEssentiaPacketDecoder extends TDIBaseBlock {
         if (tile != null) {
             if (!world.isRemote) {
                 InventoryHandler.openGui(
-                        player,
-                        world,
-                        new BlockPos(x, y, z),
-                        ForgeDirection.getOrientation(facing),
-                        GuiType.ESSENTIA_PACKET_DECODER);
+                    player,
+                    world,
+                    new BlockPos(x, y, z),
+                    ForgeDirection.getOrientation(facing),
+                    GuiType.ESSENTIA_PACKET_DECODER);
             }
             return true;
         }
@@ -62,7 +62,7 @@ public class BlockEssentiaPacketDecoder extends TDIBaseBlock {
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(final ItemStack itemStack, final EntityPlayer player, final List<String> toolTip,
-            final boolean advancedToolTips) {
+        final boolean advancedToolTips) {
         if (isShiftKeyDown()) {
             toolTip.add(StatCollector.translateToLocal("tooltip.ThaumicDualityInterface.essentia_packet_decoder.desc"));
         } else {

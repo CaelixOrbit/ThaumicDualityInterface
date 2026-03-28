@@ -4,16 +4,16 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import ThaumicDualityInterface.client.gui.GuiEssentiaPacketDecoder;
-import ThaumicDualityInterface.client.gui.container.ContainerEssentiaPacketDecoder;
-import ThaumicDualityInterface.common.tile.TileEssentiaPacketDecoder;
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.glodblock.github.inventory.gui.IGuiFactory;
 import com.google.common.collect.ImmutableList;
 
 import ThaumicDualityInterface.client.gui.GuiEssentiaInterface;
+import ThaumicDualityInterface.client.gui.GuiEssentiaPacketDecoder;
 import ThaumicDualityInterface.client.gui.container.ContainerEssentiaInterface;
+import ThaumicDualityInterface.client.gui.container.ContainerEssentiaPacketDecoder;
+import ThaumicDualityInterface.common.tile.TileEssentiaPacketDecoder;
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 
 public enum GuiType {
