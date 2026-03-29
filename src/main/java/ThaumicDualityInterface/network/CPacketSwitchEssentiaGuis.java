@@ -1,5 +1,6 @@
 package ThaumicDualityInterface.network;
 
+import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
@@ -43,8 +44,7 @@ public class CPacketSwitchEssentiaGuis implements IMessage {
                 TileEntity te = context.getTile();
                 Object target = aeBaseContainer.getTarget();
                 GuiType guiType;
-                if (!(te instanceof ThaumicDualityInterface.common.tile.TileEssentiaInterface)
-                    && !(target instanceof ThaumicDualityInterface.common.parts.PartEssentiaInterface)) {
+                if (!(target instanceof IDualEssentiaHost)) {
                     return null;
                 }
                 guiType = GuiType.DUAL_INTERFACE_ESSENTIA;
