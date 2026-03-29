@@ -2,6 +2,8 @@ package ThaumicDualityInterface.common.tile;
 
 import static thaumicenergistics.common.storage.AEEssentiaStackType.ESSENTIA_STACK_TYPE;
 
+import java.io.IOException;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -28,6 +30,8 @@ import appeng.tile.inventory.AppEngInternalInventory;
 import appeng.tile.inventory.IAEAppEngInventory;
 import appeng.tile.inventory.InvOperation;
 import appeng.util.Platform;
+import cpw.mods.fml.common.network.ByteBufUtils;
+import io.netty.buffer.ByteBuf;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectSource;
@@ -222,6 +226,8 @@ public class TileEssentiaPacketDecoder extends AENetworkTile
                 } else {
                     this.inventory.setInventorySlotContents(0, ItemEssentiaPacket.newStack(packetAspect, packetAmount));
                 }
+                this.markDirty();
+                this.markForUpdate();
                 return take;
             }
         }
@@ -318,5 +324,18 @@ public class TileEssentiaPacketDecoder extends AENetworkTile
     @Override
     public int containerContains(Aspect tag) {
         return this.getEssentiaType(ForgeDirection.UNKNOWN) == tag ? this.getEssentiaAmount(ForgeDirection.UNKNOWN) : 0;
+    }
+
+    @TileEvent(TileEventType.NETWORK_WRITE)
+    public void writeToStream(ByteBuf data) throws IOException {
+        ItemStack packet = this.inventory.getStackInSlot(0);
+        ByteBufUtils.writeItemStack(data, packet);
+    }
+
+    @TileEvent(TileEventType.NETWORK_READ)
+    public boolean readFromStream(ByteBuf data) throws IOException {
+        ItemStack newStack = ByteBufUtils.readItemStack(data);
+        this.inventory.setInventorySlotContents(0, newStack);
+        return true;
     }
 }
