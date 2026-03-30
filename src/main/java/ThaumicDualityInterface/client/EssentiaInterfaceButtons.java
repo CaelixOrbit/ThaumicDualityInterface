@@ -51,7 +51,7 @@ public class EssentiaInterfaceButtons implements ICustomButtonDataObject {
             guiLeft + 132,
             guiTop,
             !fullBlock ? ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack()
-                : ItemAndBlockHolder.BLOCK_ESSENTIAL_INTERFACE.stack(),
+                : ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(),
             StatCollector.translateToLocal("tooltip.ThaumicDualityInterface.switch_essentia_interface"),
             RenderItem.getInstance());
         buttonList.add(this.switcher);
