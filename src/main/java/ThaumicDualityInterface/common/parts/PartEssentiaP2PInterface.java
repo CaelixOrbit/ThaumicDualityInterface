@@ -1,5 +1,14 @@
 package ThaumicDualityInterface.common.parts;
 
+import java.util.List;
+
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IIcon;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import ThaumicDualityInterface.client.EssentiaInterfaceButtons;
 import ThaumicDualityInterface.common.item.ItemEssentiaPacket;
 import ThaumicDualityInterface.inventory.AEEssentiaInventory;
@@ -22,21 +31,14 @@ import appeng.tile.inventory.AppEngInternalAEInventory;
 import appeng.util.Platform;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
-import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectSource;
 import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
-import java.util.List;
-
-public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualEssentiaHost, ICustomButtonProvider, IEssentiaTransport, IAspectSource {
+public class PartEssentiaP2PInterface extends PartP2PInterface
+    implements IDualEssentiaHost, ICustomButtonProvider, IEssentiaTransport, IAspectSource {
 
     private final DualityEssentiaInterface dualityEssentia = new DualityEssentiaInterface(this.getProxy(), this);
     private final AppEngInternalAEInventory config = new AppEngInternalAEInventory(this, 6);
@@ -60,7 +62,8 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
         if (Platform.isClient()) return newTunnel;
         NBTTagCompound data = memoryCard.getData(is);
         if (newTunnel instanceof PartEssentiaP2PInterface p2PInterface) {
-            p2PInterface.duality.getConfigManager().readFromNBT(data);
+            p2PInterface.duality.getConfigManager()
+                .readFromNBT(data);
         }
         return newTunnel;
     }
@@ -72,7 +75,9 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
 
             IConfigManager config = fromInterface.duality.getConfigManager();
             config.getSettings()
-                .forEach(setting -> newDuality.getConfigManager().putSetting(setting, config.getSetting(setting)));
+                .forEach(
+                    setting -> newDuality.getConfigManager()
+                        .putSetting(setting, config.getSetting(setting)));
         }
     }
 
@@ -91,7 +96,6 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
     public TickRateModulation tickingRequest(IGridNode node, int ticksSinceLastCall) {
         TickRateModulation item = duality.tickingRequest(node, ticksSinceLastCall);
         TickRateModulation essentia = dualityEssentia.tickingRequest(node, ticksSinceLastCall);
-        // 优先返回更活跃的 Tick 状态
         if (item.ordinal() >= essentia.ordinal()) {
             return item;
         } else {
@@ -223,7 +227,6 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
 
     @Override
     public AppEngInternalAEInventory getConfig() {
-        // 需要在你的 Util 类里实现一个将源质配置镜像到假物品包的逻辑
         Util.mirrorEssentiaToPacket(config, dualityEssentia.getConfig());
         return config;
     }
@@ -234,34 +237,33 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
             config.setInventorySlotContents(
                 id,
                 ItemEssentiaPacket.newDisplayStack(essentia == null ? null : essentia.getAspect()));
-            dualityEssentia.getConfig().setEssentiaInSlot(id, dualityEssentia.getStandardEssentia(essentia));
+            dualityEssentia.getConfig()
+                .setEssentiaInSlot(id, dualityEssentia.getStandardEssentia(essentia));
         }
     }
 
     @Override
     public void setEssentiaInv(int id, AEEssentiaStack essentia) {
         if (id >= 0 && id < 6) {
-            dualityEssentia.getInternalEssentia().setEssentiaInSlot(id, essentia);
+            dualityEssentia.getInternalEssentia()
+                .setEssentiaInSlot(id, essentia);
         }
     }
 
     @Override
     public ItemStack getPrimaryGuiIcon() {
-        // P2P 界面右上角显示的机器图标
         return ItemAndBlockHolder.BLOCK_ESSENTIAL_INTERFACE.stack();
     }
 
     @Override
-    public void writeCustomButtonData() {
-    }
+    public void writeCustomButtonData() {}
 
     @Override
-    public void readCustomButtonData() {
-    }
+    public void readCustomButtonData() {}
 
     @Override
     public void initCustomButtons(int guiLeft, int guiTop, int xSize, int ySize, int xOffset, int yOffset,
-                                  List<GuiButton> buttonList) {
+        List<GuiButton> buttonList) {
         if (customButtonDataObject != null)
             customButtonDataObject.initCustomButtons(guiLeft, guiTop, xSize, ySize, xOffset, yOffset, buttonList);
     }

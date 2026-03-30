@@ -10,7 +10,6 @@ import org.jetbrains.annotations.Nullable;
 
 import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.common.parts.PartEssentiaP2PInterface;
-
 import appeng.api.AEApi;
 import appeng.api.parts.IPart;
 import appeng.api.parts.IPartItem;
@@ -38,10 +37,13 @@ public class ItemPartEssentiaP2PInterface extends TDIBaseItem implements IPartIt
     public IPart createPartFromItemStack(ItemStack is) {
         return new PartEssentiaP2PInterface(is);
     }
+
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
-                             float xOffset, float yOffset, float zOffset) {
-        return AEApi.instance().partHelper().placeBus(player.getHeldItem(), x, y, z, side, player, world);
+        float xOffset, float yOffset, float zOffset) {
+        return AEApi.instance()
+            .partHelper()
+            .placeBus(player.getHeldItem(), x, y, z, side, player, world);
     }
 
     @Override

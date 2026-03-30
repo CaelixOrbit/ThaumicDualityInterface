@@ -45,8 +45,6 @@ public abstract class MixinTileCableBus implements IEssentiaTransport {
 
     @Override
     public void setSuction(Aspect aspect, int amount) {
-        // Suction is tricky for CableBus since it's side-dependent.
-        // Usually, we delegate to all parts that are IEssentiaTransport.
         for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
             IPart part = getPart(side);
             if (part instanceof IEssentiaTransport) {
