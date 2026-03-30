@@ -114,7 +114,7 @@ public class TileEssentiaPacketDecoder extends AENetworkTile
             getProxy().getTick()
                 .alertDevice(getProxy().getNode());
         } catch (GridAccessException e) {
-            // NO-OP
+
         }
     }
 

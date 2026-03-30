@@ -7,6 +7,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import com.glodblock.github.util.BlockPos;
 
+import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.inventory.gui.GuiType;
 import appeng.container.AEBaseContainer;
 import appeng.container.ContainerOpenContext;
@@ -43,8 +44,7 @@ public class CPacketSwitchEssentiaGuis implements IMessage {
                 TileEntity te = context.getTile();
                 Object target = aeBaseContainer.getTarget();
                 GuiType guiType;
-                if (!(te instanceof ThaumicDualityInterface.common.tile.TileEssentiaInterface)
-                    && !(target instanceof ThaumicDualityInterface.common.parts.PartEssentiaInterface)) {
+                if (!(target instanceof IDualEssentiaHost)) {
                     return null;
                 }
                 guiType = GuiType.DUAL_INTERFACE_ESSENTIA;
