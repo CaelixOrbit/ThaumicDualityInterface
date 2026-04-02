@@ -10,10 +10,14 @@ import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
+import thaumcraft.api.research.ResearchItem;
+import thaumcraft.api.research.ResearchPage;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 
 public class TDIRecipeAndResearchLoader {
+
+    public static final String CATEGORY = "thaumicenergistics";
 
     private static IArcaneRecipe interfaceRecipe;
     private static IArcaneRecipe decoderRecipe;
@@ -22,6 +26,7 @@ public class TDIRecipeAndResearchLoader {
     public static void postInit() {
         registerAspects();
         registerRecipes();
+        registerResearch();
     }
 
     private static void registerAspects() {
@@ -113,5 +118,33 @@ public class TDIRecipeAndResearchLoader {
             p2pTunnel,
             ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack()
         ));
+    }
+
+    private static void registerResearch() {
+        AspectList interfaceResearchCost = new AspectList()
+            .add(Aspect.MECHANISM, 4)
+            .add(Aspect.EXCHANGE, 3)
+            .add(Aspect.ORDER, 3);
+
+        ResearchItem resInterface = new ResearchItem(
+            "TDI_ESSENTIA_INTERFACE",
+            CATEGORY,
+            interfaceResearchCost,
+            -2, -6,
+            2,
+            ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack()
+        );
+
+        resInterface.setParents("thaumicenergistics.TEESSPROV");
+        resInterface.setSecondary();
+        resInterface.setConcealed();
+
+        resInterface.setPages(
+            new ResearchPage("tc.research_page.TDI_ESSENTIA_INTERFACE.1"),
+            new ResearchPage(interfaceRecipe),
+            new ResearchPage(decoderRecipe),
+            new ResearchPage("tc.research_page.TDI_ESSENTIA_INTERFACE.2"),
+            new ResearchPage(p2pRecipe)
+        ).registerResearchItem();
     }
 }
