@@ -1,5 +1,8 @@
 package ThaumicDualityInterface;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import ThaumicDualityInterface.inventory.InventoryHandler;
 import ThaumicDualityInterface.loader.ItemAndBlockHolder;
 import ThaumicDualityInterface.loader.TDIRecipeAndResearchLoader;
@@ -8,8 +11,6 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Mod(
     modid = ThaumicDualityInterface.MODID,
@@ -53,8 +54,7 @@ public class ThaumicDualityInterface {
     public void loadComplete(FMLLoadCompleteEvent event) {
         try {
             TDIRecipeAndResearchLoader.postInit();
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
     }
 
     @Mod.EventHandler

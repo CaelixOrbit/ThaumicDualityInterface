@@ -1,11 +1,12 @@
 package ThaumicDualityInterface.loader;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import cpw.mods.fml.common.registry.GameRegistry;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -30,29 +31,25 @@ public class TDIRecipeAndResearchLoader {
     }
 
     private static void registerAspects() {
-        AspectList interfaceAspects = new AspectList()
-            .add(Aspect.MECHANISM, 6)
+        AspectList interfaceAspects = new AspectList().add(Aspect.MECHANISM, 6)
             .add(Aspect.MAGIC, 4)
             .add(Aspect.EXCHANGE, 4)
             .add(Aspect.ORDER, 3)
             .add(Aspect.VOID, 2);
         ThaumcraftApi.registerObjectTag(
             ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(),
-            new int[]{0, 32767},
-            interfaceAspects
-        );
+            new int[] { 0, 32767 },
+            interfaceAspects);
 
-        AspectList decoderAspects = new AspectList()
-            .add(Aspect.MECHANISM, 5)
+        AspectList decoderAspects = new AspectList().add(Aspect.MECHANISM, 5)
             .add(Aspect.MIND, 4)
             .add(Aspect.EXCHANGE, 3)
             .add(Aspect.WATER, 2)
             .add(Aspect.CRYSTAL, 2);
         ThaumcraftApi.registerObjectTag(
             ItemAndBlockHolder.BLOCK_ESSENTIA_PACKET_DECODER.stack(),
-            new int[]{0, 32767},
-            decoderAspects
-        );
+            new int[] { 0, 32767 },
+            decoderAspects);
     }
 
     private static void registerRecipes() {
@@ -70,7 +67,8 @@ public class TDIRecipeAndResearchLoader {
         ItemStack p2pTunnel = new ItemStack(multiPartItem, 1, 460); // 真正精确的 P2P 通道！
         ItemStack meInterface = new ItemStack(interfaceBlock, 1, 0);
 
-        ItemStack essentiaProvider = GameRegistry.findItemStack("thaumicenergistics", "thaumicenergistics.block.essentia.provider", 1);
+        ItemStack essentiaProvider = GameRegistry
+            .findItemStack("thaumicenergistics", "thaumicenergistics.block.essentia.provider", 1);
 
         logicProcessor = GameRegistry.findItemStack("appliedenergistics2", "item.ItemMultiMaterial", 1);
         if (logicProcessor != null) logicProcessor.setItemDamage(22);
@@ -81,48 +79,56 @@ public class TDIRecipeAndResearchLoader {
         interfaceRecipe = ThaumcraftApi.addArcaneCraftingRecipe(
             "TDI_ESSENTIA_INTERFACE",
             ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(),
-            new AspectList().add(Aspect.ORDER, 25).add(Aspect.AIR, 10),
+            new AspectList().add(Aspect.ORDER, 25)
+                .add(Aspect.AIR, 10),
             "TST",
             "MLP",
             "TST",
-            'T', thaumium,
-            'S', salisMundus,
-            'M', meInterface,
-            'L', logicProcessor,
-            'P', essentiaProvider
-        );
+            'T',
+            thaumium,
+            'S',
+            salisMundus,
+            'M',
+            meInterface,
+            'L',
+            logicProcessor,
+            'P',
+            essentiaProvider);
 
         decoderRecipe = ThaumcraftApi.addArcaneCraftingRecipe(
             "TDI_ESSENTIA_INTERFACE",
             ItemAndBlockHolder.BLOCK_ESSENTIA_PACKET_DECODER.stack(),
-            new AspectList().add(Aspect.ORDER, 15).add(Aspect.WATER, 15),
+            new AspectList().add(Aspect.ORDER, 15)
+                .add(Aspect.WATER, 15),
             "TFT",
             "CIC",
             "TMT",
-            'T', thaumium,
-            'F', filteredTube,
-            'C', glassCable,
-            'I', ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(),
-            'M', calcProcessor
-        );
+            'T',
+            thaumium,
+            'F',
+            filteredTube,
+            'C',
+            glassCable,
+            'I',
+            ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(),
+            'M',
+            calcProcessor);
 
         p2pRecipe = new ShapelessOreRecipe(
             ItemAndBlockHolder.PART_ESSENTIA_P2P_INTERFACE.stack(),
             p2pTunnel,
-            ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack()
-        );
+            ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack());
         GameRegistry.addRecipe(p2pRecipe);
 
-        GameRegistry.addRecipe(new ShapelessOreRecipe(
-            ItemAndBlockHolder.PART_ESSENTIA_P2P_INTERFACE.stack(),
-            p2pTunnel,
-            ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack()
-        ));
+        GameRegistry.addRecipe(
+            new ShapelessOreRecipe(
+                ItemAndBlockHolder.PART_ESSENTIA_P2P_INTERFACE.stack(),
+                p2pTunnel,
+                ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack()));
     }
 
     private static void registerResearch() {
-        AspectList interfaceResearchCost = new AspectList()
-            .add(Aspect.MECHANISM, 4)
+        AspectList interfaceResearchCost = new AspectList().add(Aspect.MECHANISM, 4)
             .add(Aspect.EXCHANGE, 3)
             .add(Aspect.ORDER, 3);
 
@@ -130,21 +136,22 @@ public class TDIRecipeAndResearchLoader {
             "TDI_ESSENTIA_INTERFACE",
             CATEGORY,
             interfaceResearchCost,
-            -2, -6,
+            -2,
+            -6,
             2,
-            ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack()
-        );
+            ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack());
 
         resInterface.setParents("thaumicenergistics.TEESSPROV");
         resInterface.setSecondary();
         resInterface.setConcealed();
 
-        resInterface.setPages(
-            new ResearchPage("tc.research_page.TDI_ESSENTIA_INTERFACE.1"),
-            new ResearchPage(interfaceRecipe),
-            new ResearchPage(decoderRecipe),
-            new ResearchPage("tc.research_page.TDI_ESSENTIA_INTERFACE.2"),
-            new ResearchPage(p2pRecipe)
-        ).registerResearchItem();
+        resInterface
+            .setPages(
+                new ResearchPage("tc.research_page.TDI_ESSENTIA_INTERFACE.1"),
+                new ResearchPage(interfaceRecipe),
+                new ResearchPage(decoderRecipe),
+                new ResearchPage("tc.research_page.TDI_ESSENTIA_INTERFACE.2"),
+                new ResearchPage(p2pRecipe))
+            .registerResearchItem();
     }
 }
