@@ -174,7 +174,7 @@ public class TileEssentiaInterface extends TileInterface
     @Nullable
     protected ItemStack getItemFromTile(final Object obj) {
         if (obj instanceof TileEssentiaInterface) {
-            return ItemAndBlockHolder.BLOCK_ESSENTIAL_INTERFACE.stack();
+            return ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack();
         }
         return null;
     }
@@ -322,7 +322,7 @@ public class TileEssentiaInterface extends TileInterface
 
     @Override
     public ItemStack getPrimaryGuiIcon() {
-        return ItemAndBlockHolder.BLOCK_ESSENTIAL_INTERFACE.stack();
+        return ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack();
     }
 
     @Override

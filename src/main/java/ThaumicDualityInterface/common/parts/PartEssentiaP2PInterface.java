@@ -53,7 +53,7 @@ public class PartEssentiaP2PInterface extends PartP2PInterface
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getTypeTexture() {
-        return ItemAndBlockHolder.BLOCK_ESSENTIAL_INTERFACE.getBlockTextureFromSide(0);
+        return ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.getBlockTextureFromSide(0);
     }
 
     @Override
@@ -252,7 +252,7 @@ public class PartEssentiaP2PInterface extends PartP2PInterface
 
     @Override
     public ItemStack getPrimaryGuiIcon() {
-        return ItemAndBlockHolder.BLOCK_ESSENTIAL_INTERFACE.stack();
+        return ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack();
     }
 
     @Override

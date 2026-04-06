@@ -8,7 +8,7 @@ import ThaumicDualityInterface.common.item.ItemPartEssentiaP2PInterface;
 
 public class ItemAndBlockHolder {
 
-    public static BlockEssentiaInterface BLOCK_ESSENTIAL_INTERFACE;
+    public static BlockEssentiaInterface BLOCK_ESSENTIA_INTERFACE;
     public static BlockEssentiaPacketDecoder BLOCK_ESSENTIA_PACKET_DECODER;
     public static ItemPartEssentiaInterface PART_ESSENTIA_INTERFACE;
     public static ItemEssentiaPacket ESSENTIA_PACKET;
@@ -26,8 +26,8 @@ public class ItemAndBlockHolder {
     }
 
     public static void init() {
-        BLOCK_ESSENTIAL_INTERFACE = new BlockEssentiaInterface();
-        BLOCK_ESSENTIAL_INTERFACE.register();
+        BLOCK_ESSENTIA_INTERFACE = new BlockEssentiaInterface();
+        BLOCK_ESSENTIA_INTERFACE.register();
         BLOCK_ESSENTIA_PACKET_DECODER = new BlockEssentiaPacketDecoder();
         BLOCK_ESSENTIA_PACKET_DECODER.register();
 
