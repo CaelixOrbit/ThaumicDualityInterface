@@ -38,7 +38,12 @@ This project is developed based on the GTNH **[ExampleMod1.7.10](https://github.
 * **Author:** Caelix
 * **Website:** [caelixorbit.space](https://caelixorbit.space)
 * **Template:** Built upon the [ExampleMod1.7.10](https://github.com/GTNewHorizons/ExampleMod1.7.10) by the GTNH Team.
-* Thanks to the **Thaumic Energistics** and **Applied Energistics 2** developers for their respective APIs.
+
+## 🙏 Acknowledgements
+
+* **The GTNH Team:** For their monumental effort in maintaining and expanding the 1.7.10 modding ecosystem (including AE2, Thaumic Energistics, and AE2FC). A special thanks for implementing essentia support in processing patterns, which directly inspired the creation of this mod.
+* **AE2 Fluid Crafting Rework:** Special thanks to **GlodBlock** (author of the Rework) and **phantamanta44** (the original creator). Portions of the core I/O logic and texture assets in this mod were adapted and modified from their open-source work.
+* **Thaumic Energistics & Applied Energistics 2:** Thanks to the original developers of these incredible mods for providing the foundational APIs and systems that make this add-on possible.
 
 ## 📄 License
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the **GNU Lesser General Public License v3.0 (LGPL-3.0)** - see the [LICENSE](./LICENSE) file for details.
