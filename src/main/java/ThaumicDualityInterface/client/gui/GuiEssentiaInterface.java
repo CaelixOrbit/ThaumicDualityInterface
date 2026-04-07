@@ -7,9 +7,9 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import com.glodblock.github.FluidCraft;
 import com.glodblock.github.inventory.gui.MouseRegionManager;
 
+import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.client.gui.container.ContainerEssentiaInterface;
 import ThaumicDualityInterface.common.parts.PartEssentiaInterface;
 import ThaumicDualityInterface.inventory.AEEssentiaInventory;
@@ -22,7 +22,8 @@ import thaumicenergistics.common.storage.AEEssentiaStack;
 
 public class GuiEssentiaInterface extends GuiSub {
 
-    private static final ResourceLocation TEX_BG = FluidCraft.resource("textures/gui/interface_fluid.png");
+    private static final ResourceLocation TEX_BG = ThaumicDualityInterface
+        .resource("textures/gui/interface_essentia.png");
     private static final int TANK_X = 35, TANK_X_OFF = 18, TANK_Y = 53;
     private static final int TANK_WIDTH = 16, TANK_HEIGHT = 68;
     private final ContainerEssentiaInterface cont;

@@ -4,8 +4,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
-import com.glodblock.github.FluidCraft;
-
+import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.client.gui.container.ContainerEssentiaPacketDecoder;
 import ThaumicDualityInterface.common.tile.TileEssentiaPacketDecoder;
 import appeng.client.gui.AEBaseGui;
@@ -13,7 +12,8 @@ import appeng.core.localization.GuiText;
 
 public class GuiEssentiaPacketDecoder extends AEBaseGui {
 
-    private static final ResourceLocation TEX_BG = FluidCraft.resource("textures/gui/fluid_packet_decoder.png");
+    private static final ResourceLocation TEX_BG = ThaumicDualityInterface
+        .resource("textures/gui/essentia_packet_decoder.png");
 
     public GuiEssentiaPacketDecoder(InventoryPlayer ipl, TileEssentiaPacketDecoder tile) {
         super(new ContainerEssentiaPacketDecoder(ipl, tile));

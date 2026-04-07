@@ -4,11 +4,13 @@ import java.util.EnumSet;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import ThaumicDualityInterface.client.render.RenderBlockEssentiaInterface;
+import ThaumicDualityInterface.client.textures.TDIPartsTexture;
 import ThaumicDualityInterface.common.tile.TileEssentiaInterface;
 import appeng.api.util.IOrientable;
 import appeng.block.AEBaseItemBlock;
@@ -34,6 +36,15 @@ public class BlockEssentiaInterface extends TDIBaseBlock {
     @SideOnly(Side.CLIENT)
     protected RenderBlockEssentiaInterface getRenderer() {
         return new RenderBlockEssentiaInterface();
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister iconRegister) {
+        for (TDIPartsTexture tex : TDIPartsTexture.values()) {
+            tex.registerIcon(iconRegister);
+        }
+        super.registerBlockIcons(iconRegister);
     }
 
     @Override

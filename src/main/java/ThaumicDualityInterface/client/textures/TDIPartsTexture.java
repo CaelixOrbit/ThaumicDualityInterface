@@ -1,6 +1,7 @@
 package ThaumicDualityInterface.client.textures;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
@@ -41,7 +42,7 @@ public enum TDIPartsTexture {
         return this.IIcon;
     }
 
-    public void registerIcon(final TextureMap map) {
+    public void registerIcon(final IIconRegister map) {
         this.IIcon = map.registerIcon(ThaumicDualityInterface.MODID + ":" + this.name);
     }
 }
