@@ -51,7 +51,7 @@ public class ItemPartEssentiaInterface extends TDIBaseItem implements IPartItem 
 
     @Override
     protected String getIconString() {
-        return ThaumicDualityInterface.MODID + ":part_essentia_interface";
+        return ThaumicDualityInterface.MODID + ":block_essentia_interface";
     }
 
     @Override
