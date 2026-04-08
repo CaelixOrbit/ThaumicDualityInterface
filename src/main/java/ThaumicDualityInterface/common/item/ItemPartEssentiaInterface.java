@@ -39,7 +39,7 @@ public class ItemPartEssentiaInterface extends TDIBaseItem implements IPartItem 
     @Override
     public ItemPartEssentiaInterface register() {
         GameRegistry.registerItem(this, "part_essentia_interface", ThaumicDualityInterface.MODID);
-        setCreativeTab(null);
+        setCreativeTab(thaumicenergistics.common.ThaumicEnergistics.ThETab);
         return this;
     }
 

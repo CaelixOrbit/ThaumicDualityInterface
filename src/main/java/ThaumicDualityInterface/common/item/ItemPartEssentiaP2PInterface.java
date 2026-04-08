@@ -49,6 +49,7 @@ public class ItemPartEssentiaP2PInterface extends TDIBaseItem implements IPartIt
     @Override
     public ItemPartEssentiaP2PInterface register() {
         GameRegistry.registerItem(this, "part_essentia_p2p_interface", ThaumicDualityInterface.MODID);
+        setCreativeTab(thaumicenergistics.common.ThaumicEnergistics.ThETab);
         return this;
     }
 

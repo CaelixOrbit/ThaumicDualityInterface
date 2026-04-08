@@ -55,7 +55,7 @@ public class BlockEssentiaPacketDecoder extends TDIBaseBlock {
     public BlockEssentiaPacketDecoder register() {
         GameRegistry.registerBlock(this, AEBaseItemBlock.class, "block_essentia_packet_decoder");
         GameRegistry.registerTileEntity(TileEssentiaPacketDecoder.class, "block_essentia_packet_decoder");
-        setCreativeTab(null);
+        setCreativeTab(thaumicenergistics.common.ThaumicEnergistics.ThETab);
         return this;
     }
 

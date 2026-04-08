@@ -88,7 +88,7 @@ public class BlockEssentiaInterface extends TDIBaseBlock {
     public BlockEssentiaInterface register() {
         GameRegistry.registerBlock(this, AEBaseItemBlock.class, "block_essentia_interface");
         GameRegistry.registerTileEntity(TileEssentiaInterface.class, "block_essentia_interface");
-        setCreativeTab(null);
+        setCreativeTab(thaumicenergistics.common.ThaumicEnergistics.ThETab);
         return this;
     }
 }
