@@ -32,20 +32,22 @@ public class TDIRecipeAndResearchLoader {
 
     private static void registerAspects() {
         AspectList interfaceAspects = new AspectList().add(Aspect.MECHANISM, 6)
-            .add(Aspect.MAGIC, 4)
-            .add(Aspect.EXCHANGE, 4)
-            .add(Aspect.ORDER, 3)
-            .add(Aspect.VOID, 2);
+            .add(Aspect.EXCHANGE, 6)
+            .add(Aspect.ORDER, 8)
+            .add(Aspect.ENTROPY, 4)
+            .add(Aspect.ENERGY, 6)
+            .add(Aspect.MAGIC, 8);
         ThaumcraftApi.registerObjectTag(
             ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(),
             new int[] { 0, 32767 },
             interfaceAspects);
 
-        AspectList decoderAspects = new AspectList().add(Aspect.MECHANISM, 5)
+        AspectList decoderAspects = new AspectList().add(Aspect.METAL, 21)
+            .add(Aspect.MAGIC, 8)
+            .add(Aspect.CRYSTAL, 6)
+            .add(Aspect.VOID, 6)
             .add(Aspect.MIND, 4)
-            .add(Aspect.EXCHANGE, 3)
-            .add(Aspect.WATER, 2)
-            .add(Aspect.CRYSTAL, 2);
+            .add(Aspect.ENERGY, 4);
         ThaumcraftApi.registerObjectTag(
             ItemAndBlockHolder.BLOCK_ESSENTIA_PACKET_DECODER.stack(),
             new int[] { 0, 32767 },
@@ -58,29 +60,26 @@ public class TDIRecipeAndResearchLoader {
         ItemStack filteredTube = new ItemStack(ConfigBlocks.blockTube, 1, 1);
 
         Item multiPartItem = GameRegistry.findItem("appliedenergistics2", "item.ItemMultiPart");
-        Item multiMaterialItem = GameRegistry.findItem("appliedenergistics2", "item.ItemMultiMaterial");
         Block interfaceBlock = GameRegistry.findBlock("appliedenergistics2", "tile.BlockInterface");
 
-        ItemStack logicProcessor = new ItemStack(multiMaterialItem, 1, 22);
-        ItemStack calcProcessor = new ItemStack(multiMaterialItem, 1, 23);
+        ItemStack logicProcessor = GameRegistry.findItemStack("appliedenergistics2", "item.ItemMultiMaterial", 1);
+        if (logicProcessor != null) logicProcessor.setItemDamage(22);
+        ItemStack calcProcessor = GameRegistry.findItemStack("appliedenergistics2", "item.ItemMultiMaterial", 1);
+        if (calcProcessor != null) calcProcessor.setItemDamage(23);
         ItemStack glassCable = new ItemStack(multiPartItem, 1, 16);
-        ItemStack p2pTunnel = new ItemStack(multiPartItem, 1, 460); // 真正精确的 P2P 通道！
+        ItemStack p2pTunnel = new ItemStack(multiPartItem, 1, 460);
         ItemStack meInterface = new ItemStack(interfaceBlock, 1, 0);
 
         ItemStack essentiaProvider = GameRegistry
             .findItemStack("thaumicenergistics", "thaumicenergistics.block.essentia.provider", 1);
 
-        logicProcessor = GameRegistry.findItemStack("appliedenergistics2", "item.ItemMultiMaterial", 1);
-        if (logicProcessor != null) logicProcessor.setItemDamage(22);
-
-        calcProcessor = GameRegistry.findItemStack("appliedenergistics2", "item.ItemMultiMaterial", 1);
-        if (calcProcessor != null) calcProcessor.setItemDamage(23);
-
         interfaceRecipe = ThaumcraftApi.addArcaneCraftingRecipe(
             "TDI_ESSENTIA_INTERFACE",
             ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(),
-            new AspectList().add(Aspect.ORDER, 25)
-                .add(Aspect.AIR, 10),
+            new AspectList().add(Aspect.ORDER, 10)
+                .add(Aspect.ENTROPY, 10)
+                .add(Aspect.WATER, 4)
+                .add(Aspect.AIR, 6),
             "TST",
             "MLP",
             "TST",
@@ -128,9 +127,9 @@ public class TDIRecipeAndResearchLoader {
     }
 
     private static void registerResearch() {
-        AspectList interfaceResearchCost = new AspectList().add(Aspect.MECHANISM, 4)
-            .add(Aspect.EXCHANGE, 3)
-            .add(Aspect.ORDER, 3);
+        AspectList interfaceResearchCost = new AspectList().add(Aspect.ORDER, 6)
+            .add(Aspect.EXCHANGE, 4)
+            .add(Aspect.MAGIC, 4);
 
         ResearchItem resInterface = new ResearchItem(
             "TDI_ESSENTIA_INTERFACE",
