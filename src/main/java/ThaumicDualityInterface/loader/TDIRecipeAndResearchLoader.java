@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
+import ThaumicDualityInterface.util.NameConst;
 import cpw.mods.fml.common.registry.GameRegistry;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
@@ -18,7 +19,7 @@ import thaumcraft.common.config.ConfigItems;
 
 public class TDIRecipeAndResearchLoader {
 
-    public static final String CATEGORY = "thaumicenergistics";
+    public static final String CATEGORY = NameConst.RES_CAT_THE;
 
     private static IArcaneRecipe interfaceRecipe;
     private static IArcaneRecipe decoderRecipe;
@@ -59,22 +60,21 @@ public class TDIRecipeAndResearchLoader {
         ItemStack salisMundus = new ItemStack(ConfigItems.itemResource, 1, 14);
         ItemStack filteredTube = new ItemStack(ConfigBlocks.blockTube, 1, 1);
 
-        Item multiPartItem = GameRegistry.findItem("appliedenergistics2", "item.ItemMultiPart");
-        Block interfaceBlock = GameRegistry.findBlock("appliedenergistics2", "tile.BlockInterface");
+        Item multiPartItem = GameRegistry.findItem(NameConst.MOD_AE2, NameConst.AE2_MULTI_PART);
+        Block interfaceBlock = GameRegistry.findBlock(NameConst.MOD_AE2, NameConst.AE2_INTERFACE_BLOCK);
 
-        ItemStack logicProcessor = GameRegistry.findItemStack("appliedenergistics2", "item.ItemMultiMaterial", 1);
+        ItemStack logicProcessor = GameRegistry.findItemStack(NameConst.MOD_AE2, NameConst.AE2_MATERIAL, 1);
         if (logicProcessor != null) logicProcessor.setItemDamage(22);
-        ItemStack calcProcessor = GameRegistry.findItemStack("appliedenergistics2", "item.ItemMultiMaterial", 1);
+        ItemStack calcProcessor = GameRegistry.findItemStack(NameConst.MOD_AE2, NameConst.AE2_MATERIAL, 1);
         if (calcProcessor != null) calcProcessor.setItemDamage(23);
         ItemStack glassCable = new ItemStack(multiPartItem, 1, 16);
         ItemStack p2pTunnel = new ItemStack(multiPartItem, 1, 460);
         ItemStack meInterface = new ItemStack(interfaceBlock, 1, 0);
 
-        ItemStack essentiaProvider = GameRegistry
-            .findItemStack("thaumicenergistics", "thaumicenergistics.block.essentia.provider", 1);
+        ItemStack essentiaProvider = GameRegistry.findItemStack(NameConst.MOD_THE, NameConst.THE_ESSENTIA_PROVIDER, 1);
 
         interfaceRecipe = ThaumcraftApi.addArcaneCraftingRecipe(
-            "TDI_ESSENTIA_INTERFACE",
+            NameConst.RES_ESSENTIA_INTERFACE,
             ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(),
             new AspectList().add(Aspect.ORDER, 10)
                 .add(Aspect.ENTROPY, 10)
@@ -95,7 +95,7 @@ public class TDIRecipeAndResearchLoader {
             essentiaProvider);
 
         decoderRecipe = ThaumcraftApi.addArcaneCraftingRecipe(
-            "TDI_ESSENTIA_INTERFACE",
+            NameConst.RES_ESSENTIA_INTERFACE,
             ItemAndBlockHolder.BLOCK_ESSENTIA_PACKET_DECODER.stack(),
             new AspectList().add(Aspect.ORDER, 15)
                 .add(Aspect.WATER, 15),
@@ -132,7 +132,7 @@ public class TDIRecipeAndResearchLoader {
             .add(Aspect.MAGIC, 4);
 
         ResearchItem resInterface = new ResearchItem(
-            "TDI_ESSENTIA_INTERFACE",
+            NameConst.RES_ESSENTIA_INTERFACE,
             CATEGORY,
             interfaceResearchCost,
             -2,
@@ -140,16 +140,16 @@ public class TDIRecipeAndResearchLoader {
             2,
             ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack());
 
-        resInterface.setParents("thaumicenergistics.TEESSPROV");
+        resInterface.setParents(NameConst.RES_PARENT_ESS_PROV);
         resInterface.setSecondary();
         resInterface.setConcealed();
 
         resInterface
             .setPages(
-                new ResearchPage("tc.research_page.TDI_ESSENTIA_INTERFACE.1"),
+                new ResearchPage(NameConst.RES_PAGE_INT_1),
                 new ResearchPage(interfaceRecipe),
                 new ResearchPage(decoderRecipe),
-                new ResearchPage("tc.research_page.TDI_ESSENTIA_INTERFACE.2"),
+                new ResearchPage(NameConst.RES_PAGE_INT_2),
                 new ResearchPage(p2pRecipe))
             .registerResearchItem();
     }

@@ -7,7 +7,6 @@ import java.util.List;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -16,6 +15,7 @@ import com.glodblock.github.util.BlockPos;
 import ThaumicDualityInterface.common.tile.TileEssentiaPacketDecoder;
 import ThaumicDualityInterface.inventory.InventoryHandler;
 import ThaumicDualityInterface.inventory.gui.GuiType;
+import ThaumicDualityInterface.util.NameConst;
 import appeng.block.AEBaseItemBlock;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -24,7 +24,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockEssentiaPacketDecoder extends TDIBaseBlock {
 
     public BlockEssentiaPacketDecoder() {
-        super(Material.iron, "block_essentia_packet_decoder");
+        super(Material.iron, NameConst.BLOCK_ESSENTIA_PACKET_DECODER);
         setFullBlock(true);
         setOpaque(true);
         setTileEntity(TileEssentiaPacketDecoder.class);
@@ -53,8 +53,8 @@ public class BlockEssentiaPacketDecoder extends TDIBaseBlock {
 
     @Override
     public BlockEssentiaPacketDecoder register() {
-        GameRegistry.registerBlock(this, AEBaseItemBlock.class, "block_essentia_packet_decoder");
-        GameRegistry.registerTileEntity(TileEssentiaPacketDecoder.class, "block_essentia_packet_decoder");
+        GameRegistry.registerBlock(this, AEBaseItemBlock.class, NameConst.BLOCK_ESSENTIA_PACKET_DECODER);
+        GameRegistry.registerTileEntity(TileEssentiaPacketDecoder.class, NameConst.BLOCK_ESSENTIA_PACKET_DECODER);
         setCreativeTab(thaumicenergistics.common.ThaumicEnergistics.ThETab);
         return this;
     }
@@ -64,9 +64,9 @@ public class BlockEssentiaPacketDecoder extends TDIBaseBlock {
     public void addInformation(final ItemStack itemStack, final EntityPlayer player, final List<String> toolTip,
         final boolean advancedToolTips) {
         if (isShiftKeyDown()) {
-            toolTip.add(StatCollector.translateToLocal("tooltip.ThaumicDualityInterface.essentia_packet_decoder.desc"));
+            toolTip.add(NameConst.i18n(NameConst.TT_ESSENTIA_PACKET_DECODER_DESC));
         } else {
-            toolTip.add(StatCollector.translateToLocal("tooltip.ThaumicDualityInterface.shift_for_more"));
+            toolTip.add(NameConst.i18n(NameConst.TT_SHIFT_FOR_MORE));
         }
     }
 }

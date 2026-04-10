@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 
 import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.common.parts.PartEssentiaInterface;
+import ThaumicDualityInterface.util.NameConst;
 import appeng.api.AEApi;
 import appeng.api.parts.IPartItem;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -18,7 +19,7 @@ public class ItemPartEssentiaInterface extends TDIBaseItem implements IPartItem 
 
     public ItemPartEssentiaInterface() {
         this.setMaxStackSize(64);
-        this.setUnlocalizedName("item.ThaumicDualityInterface.part_essentia_interface");
+        this.setUnlocalizedName(NameConst.ITEM_PART_ESSENTIA_INTERFACE);
 
     }
 
@@ -38,7 +39,7 @@ public class ItemPartEssentiaInterface extends TDIBaseItem implements IPartItem 
 
     @Override
     public ItemPartEssentiaInterface register() {
-        GameRegistry.registerItem(this, "part_essentia_interface", ThaumicDualityInterface.MODID);
+        GameRegistry.registerItem(this, NameConst.ITEM_PART_ESSENTIA_INTERFACE, ThaumicDualityInterface.MODID);
         setCreativeTab(thaumicenergistics.common.ThaumicEnergistics.ThETab);
         return this;
     }
@@ -51,7 +52,7 @@ public class ItemPartEssentiaInterface extends TDIBaseItem implements IPartItem 
 
     @Override
     protected String getIconString() {
-        return ThaumicDualityInterface.MODID + ":block_essentia_interface";
+        return ThaumicDualityInterface.MODID + ":" + NameConst.BLOCK_ESSENTIA_INTERFACE;
     }
 
     @Override

@@ -11,6 +11,7 @@ import net.minecraft.util.EnumChatFormatting;
 import com.glodblock.github.inventory.gui.MouseRegionManager;
 
 import ThaumicDualityInterface.inventory.AEEssentiaInventory;
+import ThaumicDualityInterface.util.NameConst;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
 public class EssentiaTankMouseHandler implements MouseRegionManager.Handler {
@@ -28,7 +29,7 @@ public class EssentiaTankMouseHandler implements MouseRegionManager.Handler {
     public List<String> getTooltip() {
         AEEssentiaStack essentia = tank.getEssentiaInSlot(index);
         String name = (essentia != null && essentia.getAspect() != null) ? essentia.getAspect()
-            .getName() : I18n.format("gui.ThaumicDualityInterface.empty");
+            .getName() : I18n.format(NameConst.TT_EMPTY);
         return Arrays.asList(
             name,
             EnumChatFormatting.GRAY

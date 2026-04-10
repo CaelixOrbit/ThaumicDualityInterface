@@ -10,13 +10,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants;
 
 import com.glodblock.github.common.item.FCBaseItem;
 
 import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.loader.ItemAndBlockHolder;
+import ThaumicDualityInterface.util.NameConst;
 import appeng.api.storage.data.IAEItemStack;
 import appeng.util.item.AEItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -31,7 +31,7 @@ public class ItemEssentiaPacket extends FCBaseItem {
     private IIcon baseIcon;
 
     public ItemEssentiaPacket() {
-        setUnlocalizedName("item.ThaumicDualityInterface.essentia_packet");
+        setUnlocalizedName(NameConst.ITEM_ESSENTIA_PACKET);
         setMaxStackSize(1);
     }
 
@@ -170,22 +170,13 @@ public class ItemEssentiaPacket extends FCBaseItem {
         boolean display = isDisplay(stack);
         if (display) return;
         if (aspect != null) {
-            for (String line : StatCollector
-                .translateToLocalFormatted("tooltip.ThaumicDualityInterface.essentia_packet")
+            for (String line : NameConst.i18n(NameConst.TT_ESSENTIA_PACKET)
                 .split("\\\\n")) {
                 tooltip.add(EnumChatFormatting.GRAY + line);
             }
         } else {
-            tooltip.add(
-                EnumChatFormatting.RED
-                    + StatCollector.translateToLocalFormatted("tooltip.ThaumicDualityInterface.invalid_essentia"));
+            tooltip.add(EnumChatFormatting.RED + NameConst.i18n(NameConst.TT_INVALID_ESSENTIA));
         }
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister) {
-        this.baseIcon = iconRegister.registerIcon("ThaumicDualityInterface:essentia_packet_base");
     }
 
     @SideOnly(Side.CLIENT)
@@ -203,7 +194,7 @@ public class ItemEssentiaPacket extends FCBaseItem {
 
     @Override
     public ItemEssentiaPacket register() {
-        GameRegistry.registerItem(this, "item.ThaumicDualityInterface.essentia_packet", ThaumicDualityInterface.MODID);
+        GameRegistry.registerItem(this, NameConst.ITEM_ESSENTIA_PACKET, ThaumicDualityInterface.MODID);
         return this;
     }
 }

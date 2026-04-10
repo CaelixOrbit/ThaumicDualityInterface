@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.common.parts.PartEssentiaP2PInterface;
+import ThaumicDualityInterface.util.NameConst;
 import appeng.api.AEApi;
 import appeng.api.parts.IPart;
 import appeng.api.parts.IPartItem;
@@ -23,7 +24,7 @@ public class ItemPartEssentiaP2PInterface extends TDIBaseItem implements IPartIt
 
     public ItemPartEssentiaP2PInterface() {
         this.setMaxStackSize(64);
-        this.setUnlocalizedName("part_essentia_p2p_interface");
+        this.setUnlocalizedName(NameConst.ITEM_PART_ESSENTIA_P2P_INTERFACE);
     }
 
     public void registerAEPart() {
@@ -48,7 +49,7 @@ public class ItemPartEssentiaP2PInterface extends TDIBaseItem implements IPartIt
 
     @Override
     public ItemPartEssentiaP2PInterface register() {
-        GameRegistry.registerItem(this, "part_essentia_p2p_interface", ThaumicDualityInterface.MODID);
+        GameRegistry.registerItem(this, NameConst.ITEM_PART_ESSENTIA_P2P_INTERFACE, ThaumicDualityInterface.MODID);
         setCreativeTab(thaumicenergistics.common.ThaumicEnergistics.ThETab);
         return this;
     }
@@ -60,7 +61,7 @@ public class ItemPartEssentiaP2PInterface extends TDIBaseItem implements IPartIt
 
     @Override
     public void registerIcons(IIconRegister register) {
-        this.icon = register.registerIcon("appliedenergistics2:ItemPart.P2PTunnel");
+        this.icon = register.registerIcon(NameConst.TEX_AE2_P2P_TUNNEL);
     }
 
     @Override

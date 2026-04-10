@@ -15,6 +15,7 @@ import ThaumicDualityInterface.common.parts.PartEssentiaInterface;
 import ThaumicDualityInterface.inventory.AEEssentiaInventory;
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.inventory.gui.EssentiaTankMouseHandler;
+import ThaumicDualityInterface.util.NameConst;
 import ThaumicDualityInterface.util.RenderUtil;
 import appeng.client.gui.GuiSub;
 import appeng.core.localization.GuiText;
@@ -52,8 +53,7 @@ public class GuiEssentiaInterface extends GuiSub {
 
     @Override
     public void drawFG(int offsetX, int offsetY, int mouseX, int mouseY) {
-        fontRendererObj
-            .drawString(getGuiDisplayName(I18n.format("gui.ThaumicDualityInterface.interface")), 8, 6, 0x404040);
+        fontRendererObj.drawString(getGuiDisplayName(I18n.format(NameConst.GUI_ESSENTIA_INTERFACE)), 8, 6, 0x404040);
         fontRendererObj.drawString(GuiText.inventory.getLocal(), 8, ySize - 94, 0x404040);
         GL11.glColor4f(1F, 1F, 1F, 1F);
         AEEssentiaInventory essentiaInv = cont.getTile()
@@ -78,7 +78,7 @@ public class GuiEssentiaInterface extends GuiSub {
     }
 
     public String dirName(int face) {
-        return I18n.format("gui.ThaumicDualityInterface.interface.dir." + face);
+        return I18n.format(NameConst.GUI_ESSENTIA_INTERFACE + ".dir." + face);
     }
 
     @Override

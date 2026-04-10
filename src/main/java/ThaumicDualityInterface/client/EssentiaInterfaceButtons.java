@@ -5,7 +5,6 @@ import java.util.List;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Mouse;
 
@@ -13,6 +12,7 @@ import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.loader.ItemAndBlockHolder;
 import ThaumicDualityInterface.network.CPacketEssentiaButtonUpdate;
 import ThaumicDualityInterface.network.CPacketSwitchEssentiaGuis;
+import ThaumicDualityInterface.util.NameConst;
 import appeng.api.config.Settings;
 import appeng.api.config.SidelessMode;
 import appeng.client.gui.widgets.GuiImgButton;
@@ -52,7 +52,7 @@ public class EssentiaInterfaceButtons implements ICustomButtonDataObject {
             guiTop,
             !fullBlock ? ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack()
                 : ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(),
-            StatCollector.translateToLocal("tooltip.ThaumicDualityInterface.switch_essentia_interface"),
+            NameConst.i18n(NameConst.TT_SWITCH_ESSENTIA_INTERFACE),
             RenderItem.getInstance());
         buttonList.add(this.switcher);
         ThaumicDualityInterface.proxy.netHandler.sendToServer(new CPacketEssentiaButtonUpdate());

@@ -12,6 +12,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import ThaumicDualityInterface.client.render.RenderBlockEssentiaInterface;
 import ThaumicDualityInterface.client.textures.TDIPartsTexture;
 import ThaumicDualityInterface.common.tile.TileEssentiaInterface;
+import ThaumicDualityInterface.util.NameConst;
 import appeng.api.util.IOrientable;
 import appeng.block.AEBaseItemBlock;
 import appeng.core.features.AEFeature;
@@ -25,7 +26,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockEssentiaInterface extends TDIBaseBlock {
 
     public BlockEssentiaInterface() {
-        super(Material.iron, "block_essentia_interface");
+        super(Material.iron, NameConst.BLOCK_ESSENTIA_INTERFACE);
         setFullBlock(true);
         setOpaque(true);
         setTileEntity(TileEssentiaInterface.class);
@@ -86,8 +87,8 @@ public class BlockEssentiaInterface extends TDIBaseBlock {
 
     @Override
     public BlockEssentiaInterface register() {
-        GameRegistry.registerBlock(this, AEBaseItemBlock.class, "block_essentia_interface");
-        GameRegistry.registerTileEntity(TileEssentiaInterface.class, "block_essentia_interface");
+        GameRegistry.registerBlock(this, AEBaseItemBlock.class, NameConst.BLOCK_ESSENTIA_INTERFACE);
+        GameRegistry.registerTileEntity(TileEssentiaInterface.class, NameConst.BLOCK_ESSENTIA_INTERFACE);
         setCreativeTab(thaumicenergistics.common.ThaumicEnergistics.ThETab);
         return this;
     }
