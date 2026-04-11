@@ -124,6 +124,16 @@ public class TDIRecipeAndResearchLoader {
                 ItemAndBlockHolder.PART_ESSENTIA_P2P_INTERFACE.stack(),
                 p2pTunnel,
                 ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack()));
+
+        GameRegistry.addRecipe(
+            new ShapelessOreRecipe(
+                ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(),
+                ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack()));
+
+        GameRegistry.addRecipe(
+            new ShapelessOreRecipe(
+                ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack(),
+                ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack()));
     }
 
     private static void registerResearch() {
