@@ -1,10 +1,23 @@
-# 源质接口界面
-gui.ThaumicDualityInterface.interface=源质接口
+tile.essentia_interface.name=ME源质二合一接口
+tile.essentia_packet_decoder.name=ME源质封包解码器
 
-# 方块界面的 6 个方向缩写 (对应: 下, 上, 北, 南, 西, 东)
-gui.ThaumicDualityInterface.interface.dir.0=下
-gui.ThaumicDualityInterface.interface.dir.1=上
-gui.ThaumicDualityInterface.interface.dir.2=北
-gui.ThaumicDualityInterface.interface.dir.3=南
-gui.ThaumicDualityInterface.interface.dir.4=西
-gui.ThaumicDualityInterface.interface.dir.5=东
+item.part_essentia_interface.name=ME源质二合一接口
+item.part_essentia_p2p_interface.name=P2P通道 - ME源质二合一接口
+
+thaumicdualityinterface.gui.essentia_interface=源质接口
+thaumicdualityinterface.gui.essentia_packet_decoder=ME源质封包解码器
+thaumicdualityinterface.gui.essentia_interface.dir.0=下
+thaumicdualityinterface.gui.essentia_interface.dir.1=上
+thaumicdualityinterface.gui.essentia_interface.dir.2=北
+thaumicdualityinterface.gui.essentia_interface.dir.3=南
+thaumicdualityinterface.gui.essentia_interface.dir.4=西
+thaumicdualityinterface.gui.essentia_interface.dir.5=东
+
+thaumicdualityinterface.tooltip.switch_essentia_interface=切换ME源质二合一接口GUI
+thaumicdualityinterface.tooltip.shift_for_more=§r> 按 §3Shift§r 显示更多信息
+thaumicdualityinterface.tooltip.essentia_packet_decoder.desc=源质解码器可以解码源质数据包。它必须与ME系统连接，并且网络内可以储存源质，否则它就无法工作。
+
+tc.research_name.TDI_ESSENTIA_INTERFACE=ME源质二合一接口
+tc.research_text.TDI_ESSENTIA_INTERFACE=短描述
+tc.research_page.TDI_ESSENTIA_INTERFACE.1=第一页描述
+tc.research_page.TDI_ESSENTIA_INTERFACE.2=第二页描述

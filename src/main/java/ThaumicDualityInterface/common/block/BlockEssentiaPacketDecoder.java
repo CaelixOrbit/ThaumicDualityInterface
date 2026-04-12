@@ -5,6 +5,7 @@ import static net.minecraft.client.gui.GuiScreen.isShiftKeyDown;
 import java.util.List;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -64,7 +65,9 @@ public class BlockEssentiaPacketDecoder extends TDIBaseBlock {
     public void addInformation(final ItemStack itemStack, final EntityPlayer player, final List<String> toolTip,
         final boolean advancedToolTips) {
         if (isShiftKeyDown()) {
-            toolTip.add(NameConst.i18n(NameConst.TT_ESSENTIA_PACKET_DECODER_DESC));
+            toolTip.addAll(
+                Minecraft.getMinecraft().fontRenderer
+                    .listFormattedStringToWidth((NameConst.i18n(NameConst.TT_ESSENTIA_PACKET_DECODER_DESC)), 150));
         } else {
             toolTip.add(NameConst.i18n(NameConst.TT_SHIFT_FOR_MORE));
         }
