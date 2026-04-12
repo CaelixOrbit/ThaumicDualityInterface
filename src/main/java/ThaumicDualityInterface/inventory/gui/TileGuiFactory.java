@@ -7,16 +7,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.glodblock.github.inventory.gui.IGuiFactory;
-
 import appeng.container.AEBaseContainer;
 import appeng.container.ContainerOpenContext;
 
-public abstract class TDITileGuiFactory<T> implements IGuiFactory {
+public abstract class TileGuiFactory<T> implements IGuiFactory {
 
     protected final Class<T> invClass;
 
-    public TDITileGuiFactory(Class<T> invClass) {
+    public TileGuiFactory(Class<T> invClass) {
         this.invClass = invClass;
     }
 

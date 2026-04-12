@@ -6,10 +6,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.glodblock.github.util.BlockPos;
-
 import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.inventory.gui.GuiType;
+import ThaumicDualityInterface.util.BlockPos;
 import appeng.util.Platform;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.relauncher.Side;

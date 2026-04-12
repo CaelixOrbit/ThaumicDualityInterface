@@ -8,8 +8,6 @@ import javax.annotation.Nullable;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.EnumChatFormatting;
 
-import com.glodblock.github.inventory.gui.MouseRegionManager;
-
 import ThaumicDualityInterface.inventory.AEEssentiaInventory;
 import ThaumicDualityInterface.util.NameConst;
 import thaumicenergistics.common.storage.AEEssentiaStack;

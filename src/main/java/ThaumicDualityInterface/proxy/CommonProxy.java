@@ -1,7 +1,5 @@
 package ThaumicDualityInterface.proxy;
 
-import com.glodblock.github.network.wrapper.FCNetworkWrapper;
-
 import ThaumicDualityInterface.Config;
 import ThaumicDualityInterface.Tags;
 import ThaumicDualityInterface.ThaumicDualityInterface;
@@ -9,6 +7,7 @@ import ThaumicDualityInterface.network.CPacketEssentiaButtonUpdate;
 import ThaumicDualityInterface.network.CPacketSwitchEssentiaGuis;
 import ThaumicDualityInterface.network.SPacketEssentiaButtonUpdate;
 import ThaumicDualityInterface.network.SPacketEssentiaUpdate;
+import ThaumicDualityInterface.network.wrapper.FCNetworkWrapper;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;

@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import net.minecraft.entity.player.EntityPlayer;
 
-import com.glodblock.github.inventory.gui.IGuiFactory;
 import com.google.common.collect.ImmutableList;
 
 import ThaumicDualityInterface.client.gui.GuiEssentiaInterface;
@@ -18,7 +17,7 @@ import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 
 public enum GuiType {
 
-    DUAL_INTERFACE_ESSENTIA(new TDITileOrPartGuiFactory<>(IDualEssentiaHost.class) {
+    DUAL_INTERFACE_ESSENTIA(new TileOrPartGuiFactory<>(IDualEssentiaHost.class) {
 
         @Override
         protected Object createServerGui(EntityPlayer player, IDualEssentiaHost inv) {
@@ -31,7 +30,7 @@ public enum GuiType {
         }
     }),
 
-    ESSENTIA_PACKET_DECODER(new TDITileGuiFactory<>(TileEssentiaPacketDecoder.class) {
+    ESSENTIA_PACKET_DECODER(new TileGuiFactory<>(TileEssentiaPacketDecoder.class) {
 
         @Override
         protected Object createServerGui(EntityPlayer player, TileEssentiaPacketDecoder inv) {

@@ -7,14 +7,13 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import com.glodblock.github.inventory.gui.MouseRegionManager;
-
 import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.client.gui.container.ContainerEssentiaInterface;
 import ThaumicDualityInterface.common.parts.PartEssentiaInterface;
 import ThaumicDualityInterface.inventory.AEEssentiaInventory;
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.inventory.gui.EssentiaTankMouseHandler;
+import ThaumicDualityInterface.inventory.gui.MouseRegionManager;
 import ThaumicDualityInterface.util.NameConst;
 import ThaumicDualityInterface.util.RenderUtil;
 import appeng.client.gui.GuiSub;
@@ -74,7 +73,7 @@ public class GuiEssentiaInterface extends GuiSub {
                 essentiaInv.getMaxCapacity());
         }
         GL11.glColor4f(1F, 1F, 1F, 1F);
-        mouseRegions.render(mouseX, mouseY);
+        mouseRegions.render(mouseX, mouseY, this.guiLeft, this.guiTop);
     }
 
     public String dirName(int face) {

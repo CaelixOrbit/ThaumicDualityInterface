@@ -2,9 +2,8 @@ package ThaumicDualityInterface.client.gui.container;
 
 import net.minecraft.entity.player.InventoryPlayer;
 
-import com.glodblock.github.inventory.slot.FCSlotRestrictedInput;
-
 import ThaumicDualityInterface.common.tile.TileEssentiaPacketDecoder;
+import ThaumicDualityInterface.inventory.slot.FCSlotRestrictedInput;
 import ThaumicDualityInterface.loader.ItemAndBlockHolder;
 import appeng.container.AEBaseContainer;
 

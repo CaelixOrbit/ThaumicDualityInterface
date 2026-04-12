@@ -43,7 +43,6 @@ dependencies {
 
     // 3. AE2 体系
     implementation rfg.deobf("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-830-GTNH")
-    implementation rfg.deobf("com.github.GTNewHorizons:AE2FluidCraft-Rework:1.5.58-gtnh")
 
     // 4. 神秘时代体系
     implementation(rfg.deobf("com.github.GTNewHorizons:ThaumicEnergistics:1.7.31-GTNH")) {

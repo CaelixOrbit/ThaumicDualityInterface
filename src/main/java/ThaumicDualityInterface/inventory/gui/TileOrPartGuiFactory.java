@@ -8,9 +8,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 import appeng.api.parts.IPart;
 import appeng.api.parts.IPartHost;
 
-public abstract class TDITileOrPartGuiFactory<T> extends TDITileGuiFactory<T> {
+public abstract class TileOrPartGuiFactory<T> extends TileGuiFactory<T> {
 
-    public TDITileOrPartGuiFactory(Class<T> invClass) {
+    public TileOrPartGuiFactory(Class<T> invClass) {
         super(invClass);
     }
 

@@ -8,9 +8,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
-import com.glodblock.github.loader.IRegister;
-
 import ThaumicDualityInterface.ThaumicDualityInterface;
+import ThaumicDualityInterface.loader.IRegister;
 import appeng.block.AEBaseTileBlock;
 import appeng.core.features.AEFeature;
 import appeng.core.features.ActivityState;

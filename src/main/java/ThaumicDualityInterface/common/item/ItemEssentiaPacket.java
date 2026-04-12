@@ -11,8 +11,6 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.Constants;
 
-import com.glodblock.github.common.item.FCBaseItem;
-
 import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.loader.ItemAndBlockHolder;
 import ThaumicDualityInterface.util.NameConst;
@@ -24,7 +22,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.api.aspects.Aspect;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
-public class ItemEssentiaPacket extends FCBaseItem {
+public class ItemEssentiaPacket extends TDIBaseItem {
 
     @SideOnly(Side.CLIENT)
     private IIcon baseIcon;

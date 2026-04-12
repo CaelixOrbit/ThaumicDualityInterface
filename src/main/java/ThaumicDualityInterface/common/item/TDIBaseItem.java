@@ -3,7 +3,7 @@ package ThaumicDualityInterface.common.item;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import com.glodblock.github.loader.IRegister;
+import ThaumicDualityInterface.loader.IRegister;
 
 public abstract class TDIBaseItem extends Item implements IRegister<TDIBaseItem> {
 

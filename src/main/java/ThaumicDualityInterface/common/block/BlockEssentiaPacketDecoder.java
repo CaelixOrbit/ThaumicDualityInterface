@@ -11,11 +11,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.glodblock.github.util.BlockPos;
-
 import ThaumicDualityInterface.common.tile.TileEssentiaPacketDecoder;
 import ThaumicDualityInterface.inventory.InventoryHandler;
 import ThaumicDualityInterface.inventory.gui.GuiType;
+import ThaumicDualityInterface.util.BlockPos;
 import ThaumicDualityInterface.util.NameConst;
 import appeng.block.AEBaseItemBlock;
 import cpw.mods.fml.common.registry.GameRegistry;
