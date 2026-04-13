@@ -23,7 +23,8 @@ public class TDIRecipeAndResearchLoader {
 
     private static IArcaneRecipe interfaceRecipe;
     private static IArcaneRecipe decoderRecipe;
-    private static IRecipe p2pRecipe;
+    private static IRecipe p2pRecipeBlock;
+    private static IRecipe p2pRecipePart;
 
     public static void postInit() {
         registerAspects();
@@ -113,17 +114,17 @@ public class TDIRecipeAndResearchLoader {
             'M',
             calcProcessor);
 
-        p2pRecipe = new ShapelessOreRecipe(
+        p2pRecipePart = new ShapelessOreRecipe(
             ItemAndBlockHolder.PART_ESSENTIA_P2P_INTERFACE.stack(),
             p2pTunnel,
             ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack());
-        GameRegistry.addRecipe(p2pRecipe);
+        GameRegistry.addRecipe(p2pRecipePart);
 
-        GameRegistry.addRecipe(
-            new ShapelessOreRecipe(
-                ItemAndBlockHolder.PART_ESSENTIA_P2P_INTERFACE.stack(),
-                p2pTunnel,
-                ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack()));
+        p2pRecipeBlock = new ShapelessOreRecipe(
+            ItemAndBlockHolder.PART_ESSENTIA_P2P_INTERFACE.stack(),
+            p2pTunnel,
+            ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack());
+        GameRegistry.addRecipe(p2pRecipeBlock);
 
         GameRegistry.addRecipe(
             new ShapelessOreRecipe(
@@ -158,9 +159,12 @@ public class TDIRecipeAndResearchLoader {
             .setPages(
                 new ResearchPage(NameConst.RES_PAGE_INT_1),
                 new ResearchPage(interfaceRecipe),
-                new ResearchPage(decoderRecipe),
                 new ResearchPage(NameConst.RES_PAGE_INT_2),
-                new ResearchPage(p2pRecipe))
+                new ResearchPage(NameConst.RES_PAGE_INT_3),
+                new ResearchPage(decoderRecipe),
+                new ResearchPage(NameConst.RES_PAGE_INT_4),
+                new ResearchPage(p2pRecipeBlock),
+                new ResearchPage(p2pRecipePart))
             .registerResearchItem();
     }
 }
