@@ -52,11 +52,11 @@ import appeng.util.Platform;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
-import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumicenergistics.api.tiles.IEssentiaTransportWithSimulate;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
 public class DualityEssentiaInterface implements IGridTickable, IStorageMonitorable, IAEEssentiaInventory,
-    IUpgradeableHost, IConfigManagerHost, IAspectContainer, IEssentiaTransport {
+    IUpgradeableHost, IConfigManagerHost, IAspectContainer, IEssentiaTransportWithSimulate {
 
     public static final int NUMBER_OF_TANKS = 6;
     public static final long TANK_CAPACITY = 64;
@@ -72,6 +72,7 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
     private boolean hasConfig = false;
     private int isWorking = -1;
     private boolean resetConfigCache = true;
+    private int suctionAmount = 8;
 
     public DualityEssentiaInterface(final AENetworkProxy networkProxy, final IInterfaceHost ih) {
         this.gridProxy = networkProxy;
@@ -484,7 +485,7 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
 
     @Override
     public int getSuctionAmount(ForgeDirection face) {
-        return 8;
+        return this.suctionAmount;
     }
 
     @Override
@@ -496,9 +497,14 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
     }
 
     @Override
-    public int addEssentia(Aspect aspect, int amount, ForgeDirection face) {
+    public int addEssentia(Aspect aspect, int amount, ForgeDirection face, Actionable mode) {
         int leftover = this.addToContainer(aspect, amount);
         return amount - leftover;
+    }
+
+    @Override
+    public int addEssentia(Aspect aspect, int amount, ForgeDirection face) {
+        return this.addEssentia(aspect, amount, face, Actionable.MODULATE);
     }
 
     @Override
