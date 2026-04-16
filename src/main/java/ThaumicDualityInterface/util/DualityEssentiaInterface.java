@@ -73,6 +73,9 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
     private int isWorking = -1;
     private boolean resetConfigCache = true;
     private int suctionAmount = 8;
+    public static final int TICK_RATE_IDLE = 15, TICK_RATE_URGENT = TickRates.Interface.getMin();
+    public int tickCount = 0;
+    public int tickRate = TICK_RATE_IDLE;
 
     public DualityEssentiaInterface(final AENetworkProxy networkProxy, final IInterfaceHost ih) {
         this.gridProxy = networkProxy;
