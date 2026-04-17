@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -17,6 +18,7 @@ import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.loader.ItemAndBlockHolder;
 import ThaumicDualityInterface.util.DualityEssentiaInterface;
 import ThaumicDualityInterface.util.Util;
+import appeng.api.config.Actionable;
 import appeng.api.implementations.items.IMemoryCard;
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.ticking.TickRateModulation;
@@ -33,12 +35,10 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.aspects.IAspectSource;
-import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumicenergistics.common.integration.tc.EssentiaTransportHelper;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
-public class PartEssentiaP2PInterface extends PartP2PInterface
-    implements IDualEssentiaHost, ICustomButtonProvider, IEssentiaTransport, IAspectSource {
+public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualEssentiaHost, ICustomButtonProvider {
 
     private final DualityEssentiaInterface dualityEssentia = new DualityEssentiaInterface(this.getProxy(), this);
     private final AppEngInternalAEInventory config = new AppEngInternalAEInventory(this, 6);
@@ -94,8 +94,26 @@ public class PartEssentiaP2PInterface extends PartP2PInterface
 
     @Override
     public TickRateModulation tickingRequest(IGridNode node, int ticksSinceLastCall) {
+        TileEntity tileEntity = this.getTileEntity();
+        if (tileEntity != null && !tileEntity.getWorldObj().isRemote) {
+            this.dualityEssentia.tickCount += ticksSinceLastCall;
+
+            if (this.dualityEssentia.tickCount >= this.dualityEssentia.tickRate) {
+                this.dualityEssentia.tickCount = 0;
+                this.dualityEssentia.tickRate = DualityEssentiaInterface.TICK_RATE_IDLE;
+
+                EssentiaTransportHelper.INSTANCE.takeEssentiaFromTransportNeighbors(
+                    this,
+                    tileEntity.getWorldObj(),
+                    tileEntity.xCoord,
+                    tileEntity.yCoord,
+                    tileEntity.zCoord);
+            }
+        }
+
         TickRateModulation item = duality.tickingRequest(node, ticksSinceLastCall);
         TickRateModulation essentia = dualityEssentia.tickingRequest(node, ticksSinceLastCall);
+
         if (item.ordinal() >= essentia.ordinal()) {
             return item;
         } else {
@@ -136,6 +154,15 @@ public class PartEssentiaP2PInterface extends PartP2PInterface
     @Override
     public int takeEssentia(Aspect aspect, int amount, ForgeDirection face) {
         return dualityEssentia.takeEssentia(aspect, amount, face);
+    }
+
+    @Override
+    public int addEssentia(Aspect aspect, int amount, ForgeDirection face, Actionable mode) {
+        long acceptedAmount = dualityEssentia.addEssentia(aspect, amount, face, mode);
+        if ((mode == Actionable.MODULATE) && (acceptedAmount > 0)) {
+            this.dualityEssentia.tickRate = DualityEssentiaInterface.TICK_RATE_URGENT;
+        }
+        return (int) acceptedAmount;
     }
 
     @Override

@@ -558,8 +558,13 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
     public TickRateModulation tickingRequest(IGridNode node, int TicksSinceLastCall) {
         if (!this.gridProxy.isActive()) return TickRateModulation.SLEEP;
         boolean couldDoWork = this.updateStorage();
-        return this.hasWorkToDo() ? (couldDoWork ? TickRateModulation.URGENT : TickRateModulation.SLOWER)
-            : TickRateModulation.SLEEP;
+        if (this.hasWorkToDo()) {
+            return couldDoWork ? TickRateModulation.URGENT : TickRateModulation.SLOWER;
+        }
+        if (this.tickRate == TICK_RATE_URGENT) {
+            return TickRateModulation.URGENT;
+        }
+        return TickRateModulation.SLOWER;
     }
 
     public void notifyNeighbors() {

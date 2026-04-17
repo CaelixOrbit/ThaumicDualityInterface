@@ -3,10 +3,10 @@ package ThaumicDualityInterface.inventory;
 import ThaumicDualityInterface.util.DualityEssentiaInterface;
 import appeng.tile.inventory.AppEngInternalAEInventory;
 import thaumcraft.api.aspects.IAspectContainer;
-import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumicenergistics.api.tiles.IEssentiaTransportWithSimulate;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
-public interface IDualEssentiaHost extends IAspectContainer, IEssentiaTransport, IAEEssentiaInventory {
+public interface IDualEssentiaHost extends IAspectContainer, IEssentiaTransportWithSimulate, IAEEssentiaInventory {
 
     DualityEssentiaInterface getDualityEssentia();
 
