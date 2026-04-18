@@ -251,6 +251,12 @@ public class PartEssentiaP2PInterface extends PartP2PInterface
     }
 
     @Override
+    public void getDrops(final List<ItemStack> drops, final boolean wrenched) {
+        this.dualityEssentia.addDrops(drops);
+        super.getDrops(drops, wrenched);
+    }
+
+    @Override
     public ItemStack getPrimaryGuiIcon() {
         return ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack();
     }
