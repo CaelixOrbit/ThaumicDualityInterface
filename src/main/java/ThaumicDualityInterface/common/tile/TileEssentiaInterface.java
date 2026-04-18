@@ -19,6 +19,7 @@ import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.loader.ItemAndBlockHolder;
 import ThaumicDualityInterface.util.DualityEssentiaInterface;
 import ThaumicDualityInterface.util.Util;
+import appeng.api.config.Actionable;
 import appeng.api.config.Settings;
 import appeng.api.config.SidelessMode;
 import appeng.api.config.Upgrades;
@@ -42,11 +43,12 @@ import io.netty.buffer.ByteBuf;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
-import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumicenergistics.api.tiles.IEssentiaTransportWithSimulate;
+import thaumicenergistics.common.integration.tc.EssentiaTransportHelper;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
 public class TileEssentiaInterface extends TileInterface
-    implements IDualEssentiaHost, ICustomButtonProvider, IAspectContainer, IEssentiaTransport {
+    implements IDualEssentiaHost, ICustomButtonProvider, IAspectContainer, IEssentiaTransportWithSimulate {
 
     private final IConfigManager dualityConfigManager = getInterfaceDuality().getConfigManager();
     private final DualityEssentiaInterface essentiaDuality = new DualityEssentiaInterface(this.getProxy(), this) {
@@ -265,6 +267,15 @@ public class TileEssentiaInterface extends TileInterface
     }
 
     @Override
+    public int addEssentia(Aspect aspect, int amount, ForgeDirection face, Actionable mode) {
+        long acceptedAmount = essentiaDuality.addEssentia(aspect, amount, face, mode);
+        if ((mode == Actionable.MODULATE) && (acceptedAmount > 0)) {
+            this.essentiaDuality.tickRate = DualityEssentiaInterface.TICK_RATE_URGENT;
+        }
+        return (int) acceptedAmount;
+    }
+
+    @Override
     public int addEssentia(Aspect aspect, int amount, ForgeDirection face) {
         return essentiaDuality.addEssentia(aspect, amount, face);
     }
@@ -353,5 +364,15 @@ public class TileEssentiaInterface extends TileInterface
     @Override
     public void setDataObject(ICustomButtonDataObject dataObject) {
         customButtonDataObject = dataObject;
+    }
+
+    @TileEvent(TileEventType.TICK)
+    public void onTick() {
+        if ((!this.worldObj.isRemote) && (++this.essentiaDuality.tickCount >= this.essentiaDuality.tickRate)) {
+            this.essentiaDuality.tickCount = 0;
+            this.essentiaDuality.tickRate = DualityEssentiaInterface.TICK_RATE_IDLE;
+            EssentiaTransportHelper.INSTANCE
+                .takeEssentiaFromTransportNeighbors(this, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+        }
     }
 }
