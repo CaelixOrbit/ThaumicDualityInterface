@@ -155,6 +155,12 @@ public class PartEssentiaInterface extends PartInterface implements IDualEssenti
     }
 
     @Override
+    public void getDrops(final List<ItemStack> drops, final boolean wrenched) {
+        this.essentiaDuality.addDrops(drops);
+        super.getDrops(drops, wrenched);
+    }
+
+    @Override
     public TickingRequest getTickingRequest(final IGridNode node) {
         TickingRequest item = super.getTickingRequest(node);
         TickingRequest essentia = essentiaDuality.getTickingRequest(node);
