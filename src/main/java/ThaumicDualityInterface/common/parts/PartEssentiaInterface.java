@@ -1,5 +1,13 @@
 package ThaumicDualityInterface.common.parts;
 
+import java.io.IOException;
+import java.util.List;
+
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import ThaumicDualityInterface.client.EssentiaInterfaceButtons;
 import ThaumicDualityInterface.common.item.ItemEssentiaPacket;
 import ThaumicDualityInterface.inventory.AEEssentiaInventory;
@@ -23,16 +31,9 @@ import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumicenergistics.common.storage.AEEssentiaStack;
-
-import java.io.IOException;
-import java.util.List;
 
 public class PartEssentiaInterface extends PartInterface implements IDualEssentiaHost, ICustomButtonProvider {
 
@@ -184,16 +185,14 @@ public class PartEssentiaInterface extends PartInterface implements IDualEssenti
     }
 
     @Override
-    public void writeCustomButtonData() {
-    }
+    public void writeCustomButtonData() {}
 
     @Override
-    public void readCustomButtonData() {
-    }
+    public void readCustomButtonData() {}
 
     @Override
     public void initCustomButtons(int guiLeft, int guiTop, int xSize, int ySize, int xOffset, int yOffset,
-                                  List<GuiButton> buttonList) {
+        List<GuiButton> buttonList) {
         if (customButtonDataObject != null)
             customButtonDataObject.initCustomButtons(guiLeft, guiTop, xSize, ySize, xOffset, yOffset, buttonList);
     }
