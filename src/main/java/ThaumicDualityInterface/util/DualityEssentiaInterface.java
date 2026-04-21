@@ -643,5 +643,11 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
                 drops.add(is);
             }
         }
+        for (int i = 0; i < this.craftingBuffer.getSlots(); i++) {
+            ItemStack is = ItemEssentiaPacket.newStack(this.craftingBuffer.getEssentiaInSlot(i));
+            if (is != null) {
+                drops.add(is);
+            }
+        }
     }
 }
