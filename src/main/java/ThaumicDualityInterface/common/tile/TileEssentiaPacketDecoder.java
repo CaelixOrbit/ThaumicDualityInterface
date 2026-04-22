@@ -54,6 +54,11 @@ public class TileEssentiaPacketDecoder extends AENetworkTile
         return inventory;
     }
 
+    @Override
+    public boolean canBeRotated() {
+        return false;
+    }
+
     @TileEvent(TileEventType.WORLD_NBT_WRITE)
     public NBTTagCompound writeToNBTEvent(NBTTagCompound data) {
         inventory.writeToNBT(data, "Inventory");
