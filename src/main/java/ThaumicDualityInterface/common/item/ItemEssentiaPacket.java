@@ -4,11 +4,14 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
 import ThaumicDualityInterface.ThaumicDualityInterface;
@@ -23,6 +26,9 @@ import thaumcraft.api.aspects.Aspect;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
 public class ItemEssentiaPacket extends TDIBaseItem {
+
+    private final int tickRate = 20;
+    private final int leakInterval = 5;
 
     @SideOnly(Side.CLIENT)
     private IIcon baseIcon;
@@ -193,5 +199,54 @@ public class ItemEssentiaPacket extends TDIBaseItem {
     public ItemEssentiaPacket register() {
         GameRegistry.registerItem(this, NameConst.ITEM_ESSENTIA_PACKET, ThaumicDualityInterface.MODID);
         return this;
+    }
+
+    @Override
+    public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
+        if (world.isRemote || isDisplay(stack)) return;
+
+        if (world.rand.nextInt(tickRate * leakInterval) == 0) {
+            long currentAmount = getEssentiaAmount(stack);
+            if (currentAmount > 0) {
+                long loseAmount = 1;
+                setEssentiaAmount(stack, currentAmount - loseAmount);
+
+                if (entity instanceof EntityPlayer) {
+                    EntityPlayer player = (EntityPlayer) entity;
+                    // TODO: Apply Visexhaust I debuff to the carrying player.
+                }
+
+                if (currentAmount - loseAmount <= 0) {
+                    stack.stackSize = 0;
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean onEntityItemUpdate(EntityItem entityItem) {
+        net.minecraft.world.World world = entityItem.worldObj;
+        if (world.isRemote) return false;
+
+        ItemStack stack = entityItem.getEntityItem();
+        if (isDisplay(stack)) return false;
+
+        if (world.rand.nextInt(tickRate * leakInterval) == 0) {
+            long currentAmount = getEssentiaAmount(stack);
+            if (currentAmount > 0) {
+                long loseAmount = 1;
+                setEssentiaAmount(stack, currentAmount - loseAmount);
+
+                // TODO: Implement flux leak logic in the world.
+
+                if (currentAmount - loseAmount <= 0) {
+                    entityItem.setDead();
+                } else {
+                    entityItem.setEntityItemStack(stack);
+                }
+            }
+        }
+
+        return false;
     }
 }
