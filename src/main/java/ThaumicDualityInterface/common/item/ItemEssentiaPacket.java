@@ -9,6 +9,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -213,7 +214,9 @@ public class ItemEssentiaPacket extends TDIBaseItem {
 
                 if (entity instanceof EntityPlayer) {
                     EntityPlayer player = (EntityPlayer) entity;
-                    // TODO: Apply Visexhaust I debuff to the carrying player.
+                    int duration = tickRate * 5;
+                    int amplifier = 0;
+                    player.addPotionEffect(new PotionEffect(Config.potionVisExhaustID, duration, amplifier));
                 }
 
                 if (currentAmount - loseAmount <= 0) {
