@@ -225,6 +225,12 @@ public class ItemEssentiaPacket extends TDIBaseItem {
 
                 if (currentAmount - loseAmount <= 0) {
                     stack.stackSize = 0;
+                    if (entity instanceof EntityPlayer) {
+                        EntityPlayer player = (EntityPlayer) entity;
+                        if (player.inventory.getStackInSlot(itemSlot) == stack) {
+                            player.inventory.setInventorySlotContents(itemSlot, null);
+                        }
+                    }
                 }
             }
         }
