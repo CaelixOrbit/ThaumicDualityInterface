@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
@@ -24,12 +25,15 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.common.config.Config;
+import thaumcraft.common.config.ConfigBlocks;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
 public class ItemEssentiaPacket extends TDIBaseItem {
 
     private final int tickRate = 20;
     private final int leakInterval = 5;
+    private final int leakRadius = 2;
 
     @SideOnly(Side.CLIENT)
     private IIcon baseIcon;
@@ -240,7 +244,26 @@ public class ItemEssentiaPacket extends TDIBaseItem {
                 long loseAmount = 1;
                 setEssentiaAmount(stack, currentAmount - loseAmount);
 
-                // TODO: Implement flux leak logic in the world.
+                int centerX = MathHelper.floor_double(entityItem.posX);
+                int centerY = MathHelper.floor_double(entityItem.posY);
+                int centerZ = MathHelper.floor_double(entityItem.posZ);
+
+                int offsetX = world.rand.nextInt(2 * this.leakRadius + 1) - this.leakRadius;
+                int offsetY = world.rand.nextInt(3) - 1;
+                int offsetZ = world.rand.nextInt(2 * this.leakRadius + 1) - this.leakRadius;
+
+                int targetX = centerX + offsetX;
+                int targetY = centerY + offsetY;
+                int targetZ = centerZ + offsetZ;
+
+                if (world.isAirBlock(targetX, targetY, targetZ) || world.getBlock(targetX, targetY, targetZ)
+                    .isReplaceable(world, targetX, targetY, targetZ)) {
+                    if (world.rand.nextBoolean()) {
+                        world.setBlock(targetX, targetY, targetZ, ConfigBlocks.blockFluxGoo, 0, 3);
+                    } else {
+                        world.setBlock(targetX, targetY, targetZ, ConfigBlocks.blockFluxGas, 0, 3);
+                    }
+                }
 
                 if (currentAmount - loseAmount <= 0) {
                     entityItem.setDead();
