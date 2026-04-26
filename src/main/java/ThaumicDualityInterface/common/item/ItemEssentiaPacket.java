@@ -32,7 +32,7 @@ import thaumicenergistics.common.storage.AEEssentiaStack;
 public class ItemEssentiaPacket extends TDIBaseItem {
 
     private final int tickRate = 20;
-    private final int leakInterval = 5;
+    private final int leakInterval = 10;
     private final int leakRadius = 2;
 
     @SideOnly(Side.CLIENT)
@@ -215,14 +215,14 @@ public class ItemEssentiaPacket extends TDIBaseItem {
         long currentAmount = getEssentiaAmount(stack);
         if (currentAmount <= 0) return;
 
-        long loseAmount = 1;
+        int loseAmount = (int) Math.min(world.rand.nextInt(2) + 1, currentAmount);
         long remainingAmount = currentAmount - loseAmount;
         setEssentiaAmount(stack, remainingAmount);
 
         EntityPlayer player = entity instanceof EntityPlayer ? (EntityPlayer) entity : null;
 
         if (player != null) {
-            player.addPotionEffect(new PotionEffect(Config.potionVisExhaustID, tickRate * 5, 0));
+            player.addPotionEffect(new PotionEffect(Config.potionVisExhaustID, tickRate * 5 * loseAmount, 0));
         }
 
         if (remainingAmount <= 0) {
@@ -247,7 +247,7 @@ public class ItemEssentiaPacket extends TDIBaseItem {
         long currentAmount = getEssentiaAmount(stack);
         if (currentAmount <= 0) return false;
 
-        long loseAmount = 1;
+        int loseAmount = (int) Math.min(world.rand.nextInt(2) + 1, currentAmount);
         setEssentiaAmount(stack, currentAmount - loseAmount);
 
         int centerX = MathHelper.floor_double(entityItem.posX);
@@ -264,7 +264,7 @@ public class ItemEssentiaPacket extends TDIBaseItem {
 
         if (world.isAirBlock(targetX, targetY, targetZ) || world.getBlock(targetX, targetY, targetZ)
             .isReplaceable(world, targetX, targetY, targetZ)) {
-            if (world.rand.nextBoolean()) {
+            if (loseAmount == 2) {
                 world.setBlock(targetX, targetY, targetZ, ConfigBlocks.blockFluxGoo, 0, 3);
             } else {
                 world.setBlock(targetX, targetY, targetZ, ConfigBlocks.blockFluxGas, 0, 3);
