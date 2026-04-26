@@ -210,73 +210,71 @@ public class ItemEssentiaPacket extends TDIBaseItem {
     public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
         if (world.isRemote || isDisplay(stack)) return;
 
-        if (world.rand.nextInt(tickRate * leakInterval) == 0) {
-            long currentAmount = getEssentiaAmount(stack);
-            if (currentAmount > 0) {
-                long loseAmount = 1;
-                setEssentiaAmount(stack, currentAmount - loseAmount);
+        if (world.rand.nextInt(tickRate * leakInterval) != 0) return;
 
-                if (entity instanceof EntityPlayer) {
-                    EntityPlayer player = (EntityPlayer) entity;
-                    int duration = tickRate * 5;
-                    int amplifier = 0;
-                    player.addPotionEffect(new PotionEffect(Config.potionVisExhaustID, duration, amplifier));
-                }
+        long currentAmount = getEssentiaAmount(stack);
+        if (currentAmount <= 0) return;
 
-                if (currentAmount - loseAmount <= 0) {
-                    stack.stackSize = 0;
-                    if (entity instanceof EntityPlayer) {
-                        EntityPlayer player = (EntityPlayer) entity;
-                        if (player.inventory.getStackInSlot(itemSlot) == stack) {
-                            player.inventory.setInventorySlotContents(itemSlot, null);
-                        }
-                    }
-                }
+        long loseAmount = 1;
+        long remainingAmount = currentAmount - loseAmount;
+        setEssentiaAmount(stack, remainingAmount);
+
+        EntityPlayer player = entity instanceof EntityPlayer ? (EntityPlayer) entity : null;
+
+        if (player != null) {
+            player.addPotionEffect(new PotionEffect(Config.potionVisExhaustID, tickRate * 5, 0));
+        }
+
+        if (remainingAmount <= 0) {
+            stack.stackSize = 0;
+
+            if (player != null && player.inventory.getStackInSlot(itemSlot) == stack) {
+                player.inventory.setInventorySlotContents(itemSlot, null);
             }
         }
     }
 
     @Override
     public boolean onEntityItemUpdate(EntityItem entityItem) {
-        net.minecraft.world.World world = entityItem.worldObj;
+        World world = entityItem.worldObj;
         if (world.isRemote) return false;
 
         ItemStack stack = entityItem.getEntityItem();
         if (isDisplay(stack)) return false;
 
-        if (world.rand.nextInt(tickRate * leakInterval) == 0) {
-            long currentAmount = getEssentiaAmount(stack);
-            if (currentAmount > 0) {
-                long loseAmount = 1;
-                setEssentiaAmount(stack, currentAmount - loseAmount);
+        if (world.rand.nextInt(tickRate * leakInterval) != 0) return false;
 
-                int centerX = MathHelper.floor_double(entityItem.posX);
-                int centerY = MathHelper.floor_double(entityItem.posY);
-                int centerZ = MathHelper.floor_double(entityItem.posZ);
+        long currentAmount = getEssentiaAmount(stack);
+        if (currentAmount <= 0) return false;
 
-                int offsetX = world.rand.nextInt(2 * this.leakRadius + 1) - this.leakRadius;
-                int offsetY = world.rand.nextInt(3) - 1;
-                int offsetZ = world.rand.nextInt(2 * this.leakRadius + 1) - this.leakRadius;
+        long loseAmount = 1;
+        setEssentiaAmount(stack, currentAmount - loseAmount);
 
-                int targetX = centerX + offsetX;
-                int targetY = centerY + offsetY;
-                int targetZ = centerZ + offsetZ;
+        int centerX = MathHelper.floor_double(entityItem.posX);
+        int centerY = MathHelper.floor_double(entityItem.posY);
+        int centerZ = MathHelper.floor_double(entityItem.posZ);
 
-                if (world.isAirBlock(targetX, targetY, targetZ) || world.getBlock(targetX, targetY, targetZ)
-                    .isReplaceable(world, targetX, targetY, targetZ)) {
-                    if (world.rand.nextBoolean()) {
-                        world.setBlock(targetX, targetY, targetZ, ConfigBlocks.blockFluxGoo, 0, 3);
-                    } else {
-                        world.setBlock(targetX, targetY, targetZ, ConfigBlocks.blockFluxGas, 0, 3);
-                    }
-                }
+        int offsetX = world.rand.nextInt(2 * this.leakRadius + 1) - this.leakRadius;
+        int offsetY = world.rand.nextInt(3) - 1;
+        int offsetZ = world.rand.nextInt(2 * this.leakRadius + 1) - this.leakRadius;
 
-                if (currentAmount - loseAmount <= 0) {
-                    entityItem.setDead();
-                } else {
-                    entityItem.setEntityItemStack(stack);
-                }
+        int targetX = centerX + offsetX;
+        int targetY = centerY + offsetY;
+        int targetZ = centerZ + offsetZ;
+
+        if (world.isAirBlock(targetX, targetY, targetZ) || world.getBlock(targetX, targetY, targetZ)
+            .isReplaceable(world, targetX, targetY, targetZ)) {
+            if (world.rand.nextBoolean()) {
+                world.setBlock(targetX, targetY, targetZ, ConfigBlocks.blockFluxGoo, 0, 3);
+            } else {
+                world.setBlock(targetX, targetY, targetZ, ConfigBlocks.blockFluxGas, 0, 3);
             }
+        }
+
+        if (currentAmount - loseAmount <= 0) {
+            entityItem.setDead();
+        } else {
+            entityItem.setEntityItemStack(stack);
         }
 
         return false;
