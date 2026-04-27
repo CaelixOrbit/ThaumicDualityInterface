@@ -237,10 +237,34 @@ public class ItemEssentiaPacket extends TDIBaseItem {
     @Override
     public boolean onEntityItemUpdate(EntityItem entityItem) {
         World world = entityItem.worldObj;
-        if (world.isRemote) return false;
-
         ItemStack stack = entityItem.getEntityItem();
+
         if (isDisplay(stack)) return false;
+
+        if (world.isRemote) {
+            if (world.rand.nextInt(3) == 0) {
+                double x = entityItem.posX + (world.rand.nextFloat() - 0.5D) * 0.4D;
+                double y = entityItem.posY + world.rand.nextFloat() * 0.3D + 0.1D;
+                double z = entityItem.posZ + (world.rand.nextFloat() - 0.5D) * 0.4D;
+
+                Aspect aspect = getAspect(stack);
+                if (aspect != null) {
+                    int color = aspect.getColor();
+                    float r = (color >> 16 & 255) / 255.0F;
+                    float g = (color >> 8 & 255) / 255.0F;
+                    float b = (color & 255) / 255.0F;
+
+                    if (r == 0.0F) r = 0.001F;
+
+                    world.spawnParticle("mobSpell", x, y, z, r, g, b);
+                }
+
+                if (world.rand.nextInt(2) == 0) {
+                    world.spawnParticle("townaura", x, y + 0.2D, z, 0.0D, 0.0D, 0.0D);
+                }
+            }
+            return false;
+        }
 
         if (world.rand.nextInt(tickRate * leakInterval) != 0) return false;
 
