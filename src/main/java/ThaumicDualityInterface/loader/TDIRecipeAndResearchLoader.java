@@ -158,11 +158,13 @@ public class TDIRecipeAndResearchLoader {
         resInterface
             .setPages(
                 new ResearchPage(NameConst.RES_PAGE_INT_1),
-                new ResearchPage(interfaceRecipe),
                 new ResearchPage(NameConst.RES_PAGE_INT_2),
+                new ResearchPage(interfaceRecipe),
                 new ResearchPage(NameConst.RES_PAGE_INT_3),
-                new ResearchPage(decoderRecipe),
                 new ResearchPage(NameConst.RES_PAGE_INT_4),
+                new ResearchPage(NameConst.RES_PAGE_INT_5),
+                new ResearchPage(decoderRecipe),
+                new ResearchPage(NameConst.RES_PAGE_INT_6),
                 new ResearchPage(p2pRecipeBlock),
                 new ResearchPage(p2pRecipePart))
             .registerResearchItem();

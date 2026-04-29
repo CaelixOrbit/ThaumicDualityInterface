@@ -30,6 +30,8 @@ public class NameConst {
     public static final String RES_PAGE_INT_2 = RES_PAGE_PREFIX + RES_ESSENTIA_INTERFACE + ".2";
     public static final String RES_PAGE_INT_3 = RES_PAGE_PREFIX + RES_ESSENTIA_INTERFACE + ".3";
     public static final String RES_PAGE_INT_4 = RES_PAGE_PREFIX + RES_ESSENTIA_INTERFACE + ".4";
+    public static final String RES_PAGE_INT_5 = RES_PAGE_PREFIX + RES_ESSENTIA_INTERFACE + ".5";
+    public static final String RES_PAGE_INT_6 = RES_PAGE_PREFIX + RES_ESSENTIA_INTERFACE + ".6";
 
     public static final String TT_KEY = ThaumicDualityInterface.MODID + ".tooltip.";
     public static final String TT_EMPTY = TT_KEY + "empty";

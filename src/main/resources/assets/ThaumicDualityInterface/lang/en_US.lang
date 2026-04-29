@@ -1,0 +1,29 @@
+tile.essentia_interface.name=ME Essentia Dual Interface
+tile.essentia_packet_decoder.name=ME Essentia Packet Decoder
+
+item.part_essentia_interface.name=ME Essentia Dual Interface
+item.part_essentia_p2p_interface.name=P2P Tunnel - ME Essentia Dual Interface
+
+thaumicdualityinterface.gui.essentia_interface=Essentia Interface
+thaumicdualityinterface.gui.essentia_packet_decoder=ME Essentia Packet Decoder
+thaumicdualityinterface.gui.essentia_interface.dir.0=D
+thaumicdualityinterface.gui.essentia_interface.dir.1=U
+thaumicdualityinterface.gui.essentia_interface.dir.2=N
+thaumicdualityinterface.gui.essentia_interface.dir.3=S
+thaumicdualityinterface.gui.essentia_interface.dir.4=W
+thaumicdualityinterface.gui.essentia_interface.dir.5=E
+
+thaumicdualityinterface.tooltip.empty=Empty
+thaumicdualityinterface.tooltip.switch_essentia_interface=Switch ME Essentia Dual Interface GUI
+thaumicdualityinterface.tooltip.shift_for_more=§r> Hold §3Shift§r for more information
+thaumicdualityinterface.tooltip.essentia_packet_decoder.desc=The Essentia Decoder can decode essentia packets. It must be connected to an ME network capable of storing essentia, or to other essentia containers (such as Warded Jars, Essentia Reservoirs, etc.), otherwise it will not function.
+thaumicdualityinterface.tooltip.essentia_packet=Use an Essentia Packet Decoder to\nconvert this back into essentia.
+
+tc.research_name.TDI_ESSENTIA_INTERFACE=ME Essentia Dual Interface
+tc.research_text.TDI_ESSENTIA_INTERFACE=The final piece of the automated alchemy puzzle
+tc.research_page.TDI_ESSENTIA_INTERFACE.1=You have had enough of the maddening compromises involved in automated alchemy! While the Pattern Terminal has long been able to encode processing patterns containing both items and essentia, it was infuriating that no single machine could directly handle these hybrid patterns!<BR>This forced you to brutally strip the essentia out of your patterns, leaving only the items, and then passively wait for alchemical devices to draw from a constant pool of essentia you had to manually maintain in the network.
+tc.research_page.TDI_ESSENTIA_INTERFACE.2="True automation should never compromise with such ridiculous equipment flaws!" you thought indignantly.<BR>Thus, by integrating and expanding upon the logic of the ME Interface and the Essentia Provider, you created this ingenious machine.
+tc.research_page.TDI_ESSENTIA_INTERFACE.3=It can simultaneously handle the storage and I/O of both items and essentia, finally providing perfect, true support for processing patterns containing both items and essentia. Now, your automated alchemy schemes have finally crossed the last hurdle, achieving perfect automation that includes essentia consumption in the network's calculations!<BR>Inheriting the traits of the Essentia Provider, it possesses the same minimal suction (8) as an Essentia Buffer.<BR>Just like a standard ME Interface, it is available in both part and block forms.
+tc.research_page.TDI_ESSENTIA_INTERFACE.4=To prevent leaked essentia from causing catastrophic Flux pollution in the event of accidental equipment damage, you engraved emergency braking runes into it.<BR>When the interface is broken, the contained essentia will not simply dissipate into deadly Flux. Instead, the system will trigger an emergency compression, forcibly freezing it into a semi-material entity known as an "Essentia Packet" that drops.
+tc.research_page.TDI_ESSENTIA_INTERFACE.5=However, this is not a foolproof solution—due to the violent compression, the packet is highly unstable. It will continuously leak deadly Flux into the environment while slowly losing its internal essentia!<BR>To rescue this dissipating essentia and halt the spread of pollution, you invented the §lME Essentia Packet Decoder§r. You must race against time to throw the packets inside so they can be parsed and safely exported into a network or other essentia containers.
+tc.research_page.TDI_ESSENTIA_INTERFACE.6=Considering that large-scale production inevitably brings bottlenecks in complex cable laying and channel allocation, you foresightedly designed this device to natively support the P2P transmission protocol from the very beginning.<BR>By combining it with a standard P2P Tunnel, you obtain the §lP2P Tunnel - ME Essentia Dual Interface§r.<BR>With the point-to-point mapping capabilities of the P2P protocol, you can now elegantly bypass spatial obstacles when designing your alchemical systems.
