@@ -1,5 +1,9 @@
 # Thaumic Duality Interface
 
+[![CurseForge](https://img.shields.io/badge/CurseForge-Download-F16436?style=for-the-badge&logo=curseforge&logoColor=white)](https://www.curseforge.com/minecraft/mc-mods/thaumic-duality-interface)
+[![Modrinth](https://img.shields.io/badge/Modrinth-Download-1BD96A?style=for-the-badge&logo=modrinth&logoColor=white)](https://modrinth.com/mod/thaumic-duality-interface)
+[![MC百科](https://img.shields.io/badge/MC百科-查看资料-2D89EF?style=for-the-badge)](https://www.mcmod.cn/class/26756.html)
+
 An add-on for the GTNH edition of Thaumic Energistics (Minecraft 1.7.10) that introduces an interface capable of outputting both items and essentia simultaneously for automated alchemy.
 
 ## 🌟 Overview
