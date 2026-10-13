@@ -16,7 +16,10 @@ import cpw.mods.fml.relauncher.Side;
 
 public class CommonProxy {
 
-    public FCNetworkWrapper netHandler = new FCNetworkWrapper(ThaumicDualityInterface.MODID);
+    // Minecraft 1.7.10 custom-payload channels are limited to 20 characters.
+    private static final String NETWORK_CHANNEL = "tdi_network";
+
+    public FCNetworkWrapper netHandler = new FCNetworkWrapper(NETWORK_CHANNEL);
 
     public void preInit(FMLPreInitializationEvent event) {
         int packetId = 0;
