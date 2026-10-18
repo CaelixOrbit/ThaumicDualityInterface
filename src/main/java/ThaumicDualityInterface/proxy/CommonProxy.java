@@ -7,7 +7,7 @@ import ThaumicDualityInterface.network.CPacketEssentiaButtonUpdate;
 import ThaumicDualityInterface.network.CPacketSwitchEssentiaGuis;
 import ThaumicDualityInterface.network.SPacketEssentiaButtonUpdate;
 import ThaumicDualityInterface.network.SPacketEssentiaUpdate;
-import ThaumicDualityInterface.network.wrapper.FCNetworkWrapper;
+import ThaumicDualityInterface.network.wrapper.TDINetworkWrapper;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -19,7 +19,7 @@ public class CommonProxy {
     // Minecraft 1.7.10 custom-payload channels are limited to 20 characters.
     private static final String NETWORK_CHANNEL = "tdi_network";
 
-    public FCNetworkWrapper netHandler = new FCNetworkWrapper(NETWORK_CHANNEL);
+    public TDINetworkWrapper netHandler = new TDINetworkWrapper(NETWORK_CHANNEL);
 
     public void preInit(FMLPreInitializationEvent event) {
         int packetId = 0;

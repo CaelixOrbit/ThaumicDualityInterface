@@ -19,14 +19,14 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleIndexedCodec;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.channel.ChannelFutureListener;
 
-public class FCNetworkWrapper {
+public class TDINetworkWrapper {
 
     protected final EnumMap<Side, FMLEmbeddedChannel> channels;
 
-    protected final FCIndexedCodec packetCodec;
+    protected final TDIIndexedCodec packetCodec;
 
-    public FCNetworkWrapper(String channelName) {
-        packetCodec = new FCIndexedCodec();
+    public TDINetworkWrapper(String channelName) {
+        packetCodec = new TDIIndexedCodec();
         channels = NetworkRegistry.INSTANCE.newChannel(channelName, packetCodec);
     }
 

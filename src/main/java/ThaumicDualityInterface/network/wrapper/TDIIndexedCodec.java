@@ -8,7 +8,7 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleIndexedCodec;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 
-public class FCIndexedCodec extends SimpleIndexedCodec {
+public class TDIIndexedCodec extends SimpleIndexedCodec {
 
     static int DISCRIMINATOR_BYTE = 1;
 
