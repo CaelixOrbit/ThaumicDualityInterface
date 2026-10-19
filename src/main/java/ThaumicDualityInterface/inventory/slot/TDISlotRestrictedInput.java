@@ -9,7 +9,7 @@ import org.apache.commons.lang3.tuple.MutablePair;
 
 import appeng.container.slot.SlotRestrictedInput;
 
-public class FCSlotRestrictedInput extends SlotRestrictedInput {
+public class TDISlotRestrictedInput extends SlotRestrictedInput {
 
     @FunctionalInterface
     public interface Filter {
@@ -21,7 +21,7 @@ public class FCSlotRestrictedInput extends SlotRestrictedInput {
     private final InventoryPlayer p;
     private ItemStack validItem = null;
 
-    public FCSlotRestrictedInput(ItemStack valid, IInventory i, int slotIndex, int x, int y, InventoryPlayer p) {
+    public TDISlotRestrictedInput(ItemStack valid, IInventory i, int slotIndex, int x, int y, InventoryPlayer p) {
         this(
             (inputItem) -> new MutablePair<>(
                 valid.getItem()
@@ -38,7 +38,7 @@ public class FCSlotRestrictedInput extends SlotRestrictedInput {
         this.validItem = valid;
     }
 
-    public FCSlotRestrictedInput(Filter filter, IInventory i, int slotIndex, int x, int y, InventoryPlayer p) {
+    public TDISlotRestrictedInput(Filter filter, IInventory i, int slotIndex, int x, int y, InventoryPlayer p) {
         super(PlacableItemType.INSCRIBER_PLATE, i, slotIndex, x, y, p);
         this.filter = filter;
         this.p = p;
