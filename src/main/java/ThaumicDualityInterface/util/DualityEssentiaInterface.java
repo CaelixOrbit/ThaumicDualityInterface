@@ -385,7 +385,10 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
                 if (stack != null && stack.getAspect() == tag) {
                     int extractable = (int) Math.min(remaining, stack.getStackSize());
                     stack.decStackSize(extractable);
-                    if (stack.getStackSize() <= 0) this.craftingBuffer.setEssentiaInSlot(i, null);
+                    if (stack.getStackSize() <= 0) {
+                        this.craftingBuffer.setEssentiaInSlot(i, null);
+                    }
+                    this.saveChanges();
                     remaining -= extractable;
                     if (remaining <= 0) {
                         this.notifyNeighbors();
