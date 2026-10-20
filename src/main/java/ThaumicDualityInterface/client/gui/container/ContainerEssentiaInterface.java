@@ -27,7 +27,7 @@ public class ContainerEssentiaInterface extends ContainerSubGui implements IOpti
         IInventory inv = tile.getConfig();
         final int y = 35;
         final int x = 35;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < inv.getSizeInventory(); i++) {
             addSlotToContainer(
                 new OptionalEssentiaSlotFakeTypeOnly(
                     inv,
@@ -50,7 +50,9 @@ public class ContainerEssentiaInterface extends ContainerSubGui implements IOpti
 
     @Override
     public boolean isSlotEnabled(int idx) {
-        return idx >= 0 && idx < 6;
+        return idx >= 0 && idx < this.tile.getDualityEssentia()
+            .getConfig()
+            .getSlots();
     }
 
     @Override
