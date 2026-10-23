@@ -114,6 +114,8 @@ public class PartEssentiaInterface extends PartInterface implements IDualEssenti
         config.readFromNBT(data, "ConfigInv");
         essentiaDuality.loadConfigFromPacket(this.config);
         getInternalEssentia().readFromNBT(data, "EssentiaInv");
+        essentiaDuality.getCraftingBuffer()
+            .readFromNBT(data, "craftingBuffer");
     }
 
     @Override
@@ -121,6 +123,8 @@ public class PartEssentiaInterface extends PartInterface implements IDualEssenti
         super.writeToNBT(data);
         config.writeToNBT(data, "ConfigInv");
         getInternalEssentia().writeToNBT(data, "EssentiaInv");
+        essentiaDuality.getCraftingBuffer()
+            .writeToNBT(data, "craftingBuffer");
     }
 
     @Override

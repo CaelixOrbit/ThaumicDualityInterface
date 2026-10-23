@@ -82,6 +82,20 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
     }
 
     @Override
+    public void readFromNBT(NBTTagCompound data) {
+        super.readFromNBT(data);
+        dualityEssentia.getCraftingBuffer()
+            .readFromNBT(data, "craftingBuffer");
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound data) {
+        super.writeToNBT(data);
+        dualityEssentia.getCraftingBuffer()
+            .writeToNBT(data, "craftingBuffer");
+    }
+
+    @Override
     public TickingRequest getTickingRequest(IGridNode node) {
         TickingRequest item = duality.getTickingRequest(node);
         TickingRequest essentia = dualityEssentia.getTickingRequest(node);
