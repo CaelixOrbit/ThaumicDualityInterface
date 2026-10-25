@@ -365,13 +365,18 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
         this.notifyNeighbors();
     }
 
-    @Override
-    public int addToContainer(Aspect tag, int amount) {
+    private int addToContainer(Aspect tag, int amount, Actionable mode) {
         IMEMonitor<AEEssentiaStack> grid = getEssentiaGrid();
         if (grid == null || tag == null || amount <= 0) return amount;
+
         AEEssentiaStack toAdd = new AEEssentiaStack(tag, amount);
-        AEEssentiaStack leftover = grid.injectItems(toAdd, Actionable.MODULATE, this.mySource);
+        AEEssentiaStack leftover = grid.injectItems(toAdd, mode, this.mySource);
         return leftover == null ? 0 : (int) leftover.getStackSize();
+    }
+
+    @Override
+    public int addToContainer(Aspect tag, int amount) {
+        return this.addToContainer(tag, amount, Actionable.MODULATE);
     }
 
     @Override
@@ -504,7 +509,7 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
 
     @Override
     public int addEssentia(Aspect aspect, int amount, ForgeDirection face, Actionable mode) {
-        int leftover = this.addToContainer(aspect, amount);
+        int leftover = this.addToContainer(aspect, amount, mode);
         return amount - leftover;
     }
 
