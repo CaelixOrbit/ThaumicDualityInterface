@@ -84,6 +84,9 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
     @Override
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
+        config.readFromNBT(data, "ConfigInv");
+        dualityEssentia.loadConfigFromPacket(this.config);
+        getInternalEssentia().readFromNBT(data, "EssentiaInv");
         dualityEssentia.getCraftingBuffer()
             .readFromNBT(data, "craftingBuffer");
     }
@@ -91,6 +94,8 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
     @Override
     public void writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
+        config.writeToNBT(data, "ConfigInv");
+        getInternalEssentia().writeToNBT(data, "EssentiaInv");
         dualityEssentia.getCraftingBuffer()
             .writeToNBT(data, "craftingBuffer");
     }
