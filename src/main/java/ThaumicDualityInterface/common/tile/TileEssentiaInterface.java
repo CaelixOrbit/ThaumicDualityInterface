@@ -70,6 +70,30 @@ public class TileEssentiaInterface extends TileInterface
             }
             return 0;
         }
+
+        @Override
+        public Aspect getEssentiaType(ForgeDirection face) {
+            SidelessMode mode = (SidelessMode) dualityConfigManager.getSetting(Settings.SIDELESS_MODE);
+            if (mode == SidelessMode.SIDELESS || face == ForgeDirection.UNKNOWN) {
+                return super.getEssentiaType(face);
+            }
+            AEEssentiaStack stored = this.getInternalEssentia()
+                .getEssentiaInSlot(face.ordinal());
+            return stored != null && stored.getStackSize() > 0 ? stored.getAspect() : null;
+        }
+
+        @Override
+        public int getEssentiaAmount(ForgeDirection face) {
+            SidelessMode mode = (SidelessMode) dualityConfigManager.getSetting(Settings.SIDELESS_MODE);
+            if (mode == SidelessMode.SIDELESS || face == ForgeDirection.UNKNOWN) {
+                return super.getEssentiaAmount(face);
+            }
+            AEEssentiaStack stored = this.getInternalEssentia()
+                .getEssentiaInSlot(face.ordinal());
+            return stored != null && stored.getAspect() != null && stored.getStackSize() > 0
+                ? (int) stored.getStackSize()
+                : 0;
+        }
     };
     private final AppEngInternalAEInventory config = new AppEngInternalAEInventory(this, 6);
     private ICustomButtonDataObject customButtonDataObject;
