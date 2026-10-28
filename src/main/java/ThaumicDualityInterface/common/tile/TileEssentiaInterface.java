@@ -60,15 +60,29 @@ public class TileEssentiaInterface extends TileInterface
                 return super.takeEssentia(aspect, amount, face);
             }
             int slotIndex = face.ordinal();
+            AEEssentiaInventory craftingBuffer = this.getCraftingBuffer();
+            int fromBuffer = Math.min(amount, craftingBuffer.containerContains(aspect));
+            int remaining = amount - fromBuffer;
             AEEssentiaStack stored = this.getInternalEssentia()
                 .getEssentiaInSlot(slotIndex);
+            long storedAmount = 0;
             if (stored != null && stored.getAspect()
-                .equals(aspect) && stored.getStackSize() >= amount) {
-                this.getInternalEssentia()
-                    .extractEssentia(slotIndex, aspect, amount, appeng.api.config.Actionable.MODULATE);
-                return amount;
+                .equals(aspect)) {
+                storedAmount = stored.getStackSize();
             }
-            return 0;
+            if (remaining > storedAmount) {
+                return 0;
+            }
+            if (fromBuffer > 0) {
+                craftingBuffer.takeFromContainer(aspect, fromBuffer);
+                this.saveChanges();
+            }
+            if (remaining > 0) {
+                this.getInternalEssentia()
+                    .extractEssentia(slotIndex, aspect, remaining, Actionable.MODULATE);
+            }
+            this.notifyNeighbors();
+            return amount;
         }
 
         @Override
@@ -76,6 +90,13 @@ public class TileEssentiaInterface extends TileInterface
             SidelessMode mode = (SidelessMode) dualityConfigManager.getSetting(Settings.SIDELESS_MODE);
             if (mode == SidelessMode.SIDELESS || face == ForgeDirection.UNKNOWN) {
                 return super.getEssentiaType(face);
+            }
+            AEEssentiaInventory craftingBuffer = this.getCraftingBuffer();
+            for (int i = 0; i < craftingBuffer.getSlots(); i++) {
+                AEEssentiaStack stack = craftingBuffer.getEssentiaInSlot(i);
+                if (stack != null && stack.getStackSize() > 0 && stack.getAspect() != null) {
+                    return stack.getAspect();
+                }
             }
             AEEssentiaStack stored = this.getInternalEssentia()
                 .getEssentiaInSlot(face.ordinal());
@@ -88,11 +109,19 @@ public class TileEssentiaInterface extends TileInterface
             if (mode == SidelessMode.SIDELESS || face == ForgeDirection.UNKNOWN) {
                 return super.getEssentiaAmount(face);
             }
+            Aspect aspect = this.getEssentiaType(face);
+            if (aspect == null) {
+                return 0;
+            }
+            long amount = this.getCraftingBuffer()
+                .containerContains(aspect);
             AEEssentiaStack stored = this.getInternalEssentia()
                 .getEssentiaInSlot(face.ordinal());
-            return stored != null && stored.getAspect() != null && stored.getStackSize() > 0
-                ? (int) stored.getStackSize()
-                : 0;
+            if (stored != null && stored.getAspect()
+                .equals(aspect)) {
+                amount += stored.getStackSize();
+            }
+            return (int) Math.min(amount, Integer.MAX_VALUE);
         }
     };
     private final AppEngInternalAEInventory config = new AppEngInternalAEInventory(this, 6);
