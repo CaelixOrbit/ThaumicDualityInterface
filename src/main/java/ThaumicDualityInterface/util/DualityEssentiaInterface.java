@@ -323,15 +323,10 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
                 had = this.hasWorkToDo();
                 this.updatePlan(slot);
                 boolean now = this.hasWorkToDo();
-                if (had != now) {
+                if (!had && now) {
                     try {
-                        if (now) {
-                            this.gridProxy.getTick()
-                                .alertDevice(this.gridProxy.getNode());
-                        } else {
-                            this.gridProxy.getTick()
-                                .sleepDevice(this.gridProxy.getNode());
-                        }
+                        this.gridProxy.getTick()
+                            .alertDevice(this.gridProxy.getNode());
                     } catch (GridAccessException ignored) {}
                 }
             }
@@ -354,12 +349,10 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
         boolean had = this.hasWorkToDo();
         for (int x = 0; x < NUMBER_OF_TANKS; ++x) this.updatePlan(x);
         boolean has = this.hasWorkToDo();
-        if (had != has) {
+        if (!had && has) {
             try {
-                if (has) this.gridProxy.getTick()
+                this.gridProxy.getTick()
                     .alertDevice(this.gridProxy.getNode());
-                else this.gridProxy.getTick()
-                    .sleepDevice(this.gridProxy.getNode());
             } catch (GridAccessException ignored) {}
         }
         this.notifyNeighbors();
@@ -576,15 +569,19 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
     }
 
     public void notifyNeighbors() {
+        this.wakeDevice();
+        TileEntity te = this.iHost.getTileEntity();
+        if (te != null && te.getWorldObj() != null) {
+            Platform.notifyBlocksOfNeighbors(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord);
+        }
+    }
+
+    public void wakeDevice() {
         if (this.gridProxy.isActive()) {
             try {
                 this.gridProxy.getTick()
                     .wakeDevice(this.gridProxy.getNode());
             } catch (GridAccessException ignored) {}
-        }
-        TileEntity te = this.iHost.getTileEntity();
-        if (te != null && te.getWorldObj() != null) {
-            Platform.notifyBlocksOfNeighbors(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord);
         }
     }
 

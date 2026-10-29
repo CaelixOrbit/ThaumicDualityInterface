@@ -82,6 +82,12 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
     }
 
     @Override
+    public void onNeighborChanged() {
+        super.onNeighborChanged();
+        dualityEssentia.wakeDevice();
+    }
+
+    @Override
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
         config.readFromNBT(data, "ConfigInv");
@@ -107,7 +113,7 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
         return new TickingRequest(
             Math.min(item.minTickRate, essentia.minTickRate),
             Math.max(item.maxTickRate, essentia.maxTickRate),
-            item.isSleeping && essentia.isSleeping,
+            false,
             true);
     }
 

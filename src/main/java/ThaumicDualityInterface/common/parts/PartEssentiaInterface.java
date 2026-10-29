@@ -68,6 +68,12 @@ public class PartEssentiaInterface extends PartInterface implements IDualEssenti
     }
 
     @Override
+    public void onNeighborChanged() {
+        super.onNeighborChanged();
+        essentiaDuality.wakeDevice();
+    }
+
+    @Override
     public DualityEssentiaInterface getDualityEssentia() {
         return essentiaDuality;
     }
@@ -171,7 +177,7 @@ public class PartEssentiaInterface extends PartInterface implements IDualEssenti
         return new TickingRequest(
             Math.min(item.minTickRate, essentia.minTickRate),
             Math.max(item.maxTickRate, essentia.maxTickRate),
-            item.isSleeping && essentia.isSleeping,
+            false,
             true);
     }
 

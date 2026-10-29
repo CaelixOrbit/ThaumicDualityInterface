@@ -12,12 +12,14 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import ThaumicDualityInterface.common.item.ItemEssentiaPacket;
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.util.DualityEssentiaInterface;
 import appeng.api.networking.crafting.ICraftingPatternDetails;
+import appeng.api.parts.IPart;
 import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IAEStack;
 import appeng.helpers.DualityInterface;
@@ -31,6 +33,14 @@ public abstract class MixinDualityInterface {
     @Shadow
     @Final
     private IInterfaceHost iHost;
+
+    @Inject(method = { "readConfig", "onChangeInventory" }, at = @At("RETURN"), remap = false)
+    private void wakeEssentiaTicking(CallbackInfo ci) {
+        if (this.iHost instanceof IPart && this.iHost instanceof IDualEssentiaHost) {
+            ((IDualEssentiaHost) this.iHost).getDualityEssentia()
+                .wakeDevice();
+        }
+    }
 
     private AEEssentiaStack getEssentiaFromStack(IAEStack<?> stack) {
         if (stack instanceof AEEssentiaStack) {
