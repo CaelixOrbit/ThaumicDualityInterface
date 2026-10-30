@@ -72,8 +72,12 @@ public abstract class MixinDualityInterface {
             }
         }
         if (!extractedEssentia.isEmpty()) {
+            DualityEssentiaInterface essentiaBrain = ((IDualEssentiaHost) this.iHost).getDualityEssentia();
+            if (!essentiaBrain.canInjectIntoCraftingBuffer(extractedEssentia)) {
+                cir.setReturnValue(false);
+                return;
+            }
             if (!containsItemsOrFluids) {
-                DualityEssentiaInterface essentiaBrain = ((IDualEssentiaHost) this.iHost).getDualityEssentia();
                 for (AEEssentiaStack e : extractedEssentia) essentiaBrain.injectIntoCraftingBuffer(e.copy());
                 essentiaBrain.saveChanges();
                 cir.setReturnValue(true);

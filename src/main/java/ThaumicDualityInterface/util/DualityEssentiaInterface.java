@@ -64,7 +64,7 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
     private final AENetworkProxy gridProxy;
     private final IInterfaceHost iHost;
     private final BaseActionSource mySource;
-    private final AEEssentiaInventory craftingBuffer = new AEEssentiaInventory(this, 10, Integer.MAX_VALUE);
+    private final AEEssentiaInventory craftingBuffer = new AEEssentiaInventory(this, 32, Integer.MAX_VALUE);
     private final AEEssentiaInventory tanks = new AEEssentiaInventory(this, NUMBER_OF_TANKS, (int) TANK_CAPACITY);
     private final AEEssentiaInventory config = new AEEssentiaInventory(this, NUMBER_OF_TANKS, Integer.MAX_VALUE);
     private final AEEssentiaStack[] requireWork;
@@ -96,6 +96,34 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
 
     public AEEssentiaInventory getCraftingBuffer() {
         return this.craftingBuffer;
+    }
+
+    public boolean canInjectIntoCraftingBuffer(List<AEEssentiaStack> essentias) {
+        Map<Aspect, Long> spaceByAspect = new IdentityHashMap<>();
+        int emptySlots = 0;
+        long capacity = this.craftingBuffer.getMaxCapacity();
+        for (int i = 0; i < this.craftingBuffer.getSlots(); i++) {
+            AEEssentiaStack existing = this.craftingBuffer.getEssentiaInSlot(i);
+            if (existing == null) {
+                emptySlots++;
+            } else {
+                spaceByAspect.putIfAbsent(existing.getAspect(), capacity - existing.getStackSize());
+            }
+        }
+        for (AEEssentiaStack essentia : essentias) {
+            long amount = essentia.getStackSize();
+            if (amount <= 0) continue;
+            Aspect aspect = essentia.getAspect();
+            Long space = spaceByAspect.get(aspect);
+            if (space == null) {
+                if (emptySlots == 0) return false;
+                emptySlots--;
+                space = capacity;
+            }
+            if (amount > space) return false;
+            spaceByAspect.put(aspect, space - amount);
+        }
+        return true;
     }
 
     public void injectIntoCraftingBuffer(AEEssentiaStack essentia) {
