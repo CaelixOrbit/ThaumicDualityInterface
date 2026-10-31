@@ -1,6 +1,5 @@
 package ThaumicDualityInterface.proxy;
 
-import ThaumicDualityInterface.Config;
 import ThaumicDualityInterface.Tags;
 import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.network.CPacketEssentiaButtonUpdate;
@@ -40,8 +39,6 @@ public class CommonProxy {
             Side.SERVER);
         netHandler
             .registerMessage(SPacketEssentiaUpdate.Handler.class, SPacketEssentiaUpdate.class, packetId++, Side.CLIENT);
-        Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
-        ThaumicDualityInterface.LOG.info(Config.greeting);
         ThaumicDualityInterface.LOG.info("I am ThaumicDualityInterface at version " + Tags.VERSION);
     }
 
