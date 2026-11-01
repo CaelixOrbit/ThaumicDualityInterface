@@ -54,6 +54,14 @@ public class TileEssentiaInterface extends TileInterface
     private final DualityEssentiaInterface essentiaDuality = new DualityEssentiaInterface(this.getProxy(), this) {
 
         @Override
+        public void onEssentiaInventoryChanged(IAEEssentiaTank inv, int slot) {
+            super.onEssentiaInventoryChanged(inv, slot);
+            if (inv == this.getInternalEssentia() || inv == this.getConfig()) {
+                TileEssentiaInterface.this.markForUpdate();
+            }
+        }
+
+        @Override
         public int takeEssentia(Aspect aspect, int amount, ForgeDirection face) {
             SidelessMode mode = (SidelessMode) dualityConfigManager.getSetting(Settings.SIDELESS_MODE);
             if (mode == SidelessMode.SIDELESS || face == ForgeDirection.UNKNOWN) {
@@ -190,15 +198,16 @@ public class TileEssentiaInterface extends TileInterface
     }
 
     @TileEvent(TileEventType.NETWORK_WRITE)
-    protected void writeToStream(ByteBuf data) throws IOException {
-        for (int i = 0; i < config.getSizeInventory(); i++) {
-            ByteBufUtils.writeItemStack(data, config.getStackInSlot(i));
+    public void writeToStream(ByteBuf data) throws IOException {
+        AppEngInternalAEInventory configInventory = this.getConfig();
+        for (int i = 0; i < configInventory.getSizeInventory(); i++) {
+            ByteBufUtils.writeItemStack(data, configInventory.getStackInSlot(i));
         }
         getInternalEssentia().writeToBuf(data);
     }
 
     @TileEvent(TileEventType.NETWORK_READ)
-    protected boolean readFromStream(ByteBuf data) throws IOException {
+    public boolean readFromStream(ByteBuf data) throws IOException {
         boolean changed = false;
         for (int i = 0; i < config.getSizeInventory(); i++) {
             ItemStack stack = ByteBufUtils.readItemStack(data);
