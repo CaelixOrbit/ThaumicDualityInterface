@@ -9,13 +9,13 @@ import org.lwjgl.opengl.GL11;
 
 import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.client.gui.container.ContainerEssentiaInterface;
-import ThaumicDualityInterface.common.parts.PartEssentiaInterface;
 import ThaumicDualityInterface.inventory.AEEssentiaInventory;
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.inventory.gui.EssentiaTankMouseHandler;
 import ThaumicDualityInterface.inventory.gui.MouseRegionManager;
 import ThaumicDualityInterface.util.NameConst;
 import ThaumicDualityInterface.util.RenderUtil;
+import appeng.api.parts.IPart;
 import appeng.client.gui.GuiSub;
 import appeng.core.localization.GuiText;
 import thaumicenergistics.common.storage.AEEssentiaStack;
@@ -98,6 +98,6 @@ public class GuiEssentiaInterface extends GuiSub {
     }
 
     private boolean isPart() {
-        return this.cont.getTile() instanceof PartEssentiaInterface;
+        return this.cont.getTile() instanceof IPart;
     }
 }
