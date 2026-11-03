@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,12 +14,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import ThaumicDualityInterface.common.item.ItemEssentiaPacket;
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.util.DualityEssentiaInterface;
 import appeng.api.networking.crafting.ICraftingPatternDetails;
 import appeng.api.parts.IPart;
-import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IAEStack;
 import appeng.helpers.DualityInterface;
 import appeng.helpers.IInterfaceHost;
@@ -45,12 +42,6 @@ public abstract class MixinDualityInterface {
     private AEEssentiaStack getEssentiaFromStack(IAEStack<?> stack) {
         if (stack instanceof AEEssentiaStack) {
             return (AEEssentiaStack) stack;
-        }
-        if (stack instanceof IAEItemStack) {
-            ItemStack is = ((IAEItemStack) stack).getItemStack();
-            if (is != null && is.getItem() instanceof ItemEssentiaPacket) {
-                return ItemEssentiaPacket.getEssentiaAEStack(is);
-            }
         }
         return null;
     }
