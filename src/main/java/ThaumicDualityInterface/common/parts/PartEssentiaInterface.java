@@ -296,7 +296,7 @@ public class PartEssentiaInterface extends PartInterface implements IDualEssenti
 
     @Override
     public boolean canInputFrom(ForgeDirection face) {
-        return essentiaDuality.canInputFrom(face);
+        return face == this.getSide() && essentiaDuality.canInputFrom(face);
     }
 
     @Override

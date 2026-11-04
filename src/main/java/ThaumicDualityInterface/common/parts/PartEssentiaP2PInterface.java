@@ -153,7 +153,7 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
 
     @Override
     public boolean canInputFrom(ForgeDirection face) {
-        return dualityEssentia.canInputFrom(face);
+        return face == this.getSide() && dualityEssentia.canInputFrom(face);
     }
 
     @Override
