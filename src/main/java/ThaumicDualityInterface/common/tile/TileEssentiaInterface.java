@@ -224,10 +224,10 @@ public class TileEssentiaInterface extends TileInterface
     @TileEvent(TileEventType.WORLD_NBT_READ)
     public void readFromNBTEvent(NBTTagCompound data) {
         config.readFromNBT(data, "ConfigInv");
-        essentiaDuality.loadConfigFromPacket(this.config);
         getInternalEssentia().readFromNBT(data, "EssentiaInv");
         essentiaDuality.getCraftingBuffer()
             .readFromNBT(data, "craftingBuffer");
+        essentiaDuality.loadConfigFromPacket(this.config);
     }
 
     @TileEvent(TileEventType.WORLD_NBT_WRITE)

@@ -91,10 +91,10 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
         config.readFromNBT(data, "ConfigInv");
-        dualityEssentia.loadConfigFromPacket(this.config);
         getInternalEssentia().readFromNBT(data, "EssentiaInv");
         dualityEssentia.getCraftingBuffer()
             .readFromNBT(data, "craftingBuffer");
+        dualityEssentia.loadConfigFromPacket(this.config);
     }
 
     @Override

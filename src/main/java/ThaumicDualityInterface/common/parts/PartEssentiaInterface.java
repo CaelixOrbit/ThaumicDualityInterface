@@ -118,10 +118,10 @@ public class PartEssentiaInterface extends PartInterface implements IDualEssenti
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
         config.readFromNBT(data, "ConfigInv");
-        essentiaDuality.loadConfigFromPacket(this.config);
         getInternalEssentia().readFromNBT(data, "EssentiaInv");
         essentiaDuality.getCraftingBuffer()
             .readFromNBT(data, "craftingBuffer");
+        essentiaDuality.loadConfigFromPacket(this.config);
     }
 
     @Override
