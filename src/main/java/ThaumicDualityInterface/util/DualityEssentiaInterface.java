@@ -52,6 +52,7 @@ import appeng.util.Platform;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
+import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumicenergistics.api.tiles.IEssentiaTransportWithSimulate;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
@@ -539,8 +540,28 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
         return this.addEssentia(aspect, amount, face, Actionable.MODULATE);
     }
 
+    protected Aspect getNeighborWantedAspect(ForgeDirection face) {
+        if (face == ForgeDirection.UNKNOWN) return null;
+        TileEntity tile = this.iHost.getTileEntity();
+        if (tile == null || tile.getWorldObj() == null) return null;
+        TileEntity neighbor = tile.getWorldObj()
+            .getTileEntity(tile.xCoord + face.offsetX, tile.yCoord + face.offsetY, tile.zCoord + face.offsetZ);
+        if (neighbor instanceof IEssentiaTransport) {
+            return ((IEssentiaTransport) neighbor).getSuctionType(face.getOpposite());
+        }
+        return null;
+    }
+
     @Override
     public Aspect getEssentiaType(ForgeDirection face) {
+        Aspect wantedAspect = this.getNeighborWantedAspect(face);
+        if (wantedAspect != null) {
+            if (this.craftingBuffer.containerContains(wantedAspect) > 0
+                || this.tanks.containerContains(wantedAspect) > 0) {
+                return wantedAspect;
+            }
+            return null;
+        }
         if (this.craftingBuffer != null) {
             for (int i = 0; i < this.craftingBuffer.getSlots(); i++) {
                 AEEssentiaStack stack = this.craftingBuffer.getEssentiaInSlot(i);

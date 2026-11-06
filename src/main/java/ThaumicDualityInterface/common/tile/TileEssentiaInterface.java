@@ -100,14 +100,24 @@ public class TileEssentiaInterface extends TileInterface
                 return super.getEssentiaType(face);
             }
             AEEssentiaInventory craftingBuffer = this.getCraftingBuffer();
+            AEEssentiaStack stored = this.getInternalEssentia()
+                .getEssentiaInSlot(face.ordinal());
+            Aspect wantedAspect = this.getNeighborWantedAspect(face);
+            if (wantedAspect != null) {
+                if (craftingBuffer.containerContains(wantedAspect) > 0) {
+                    return wantedAspect;
+                }
+                if (stored != null && stored.getStackSize() > 0 && stored.getAspect() == wantedAspect) {
+                    return wantedAspect;
+                }
+                return null;
+            }
             for (int i = 0; i < craftingBuffer.getSlots(); i++) {
                 AEEssentiaStack stack = craftingBuffer.getEssentiaInSlot(i);
                 if (stack != null && stack.getStackSize() > 0 && stack.getAspect() != null) {
                     return stack.getAspect();
                 }
             }
-            AEEssentiaStack stored = this.getInternalEssentia()
-                .getEssentiaInSlot(face.ordinal());
             return stored != null && stored.getStackSize() > 0 ? stored.getAspect() : null;
         }
 
