@@ -87,6 +87,9 @@ public class TileEssentiaPacketDecoder extends AENetworkTile
             inventory.setInventorySlotContents(0, null);
             return TickRateModulation.SLEEP;
         }
+        if (!getProxy().isActive()) {
+            return TickRateModulation.IDLE;
+        }
 
         AEEssentiaStack aeEssentia = ItemEssentiaPacket.getEssentiaAEStack(stack);
 
