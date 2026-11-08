@@ -338,6 +338,9 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
 
     @Override
     public void onEssentiaInventoryChanged(IAEEssentiaTank inventory, int slot) {
+        if (inventory == this.tanks) {
+            this.saveChanges();
+        }
         if (this.isWorking != slot) {
             boolean had;
             if (inventory == this.config) {
@@ -348,7 +351,6 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
                     this.notifyNeighbors();
                 }
             } else if (inventory == this.tanks) {
-                this.saveChanges();
                 had = this.hasWorkToDo();
                 this.updatePlan(slot);
                 boolean now = this.hasWorkToDo();
