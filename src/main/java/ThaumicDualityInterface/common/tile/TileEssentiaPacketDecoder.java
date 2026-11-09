@@ -118,6 +118,9 @@ public class TileEssentiaPacketDecoder extends AENetworkTile
     public void onChangeInventory(IInventory inv, int slot, InvOperation mc, ItemStack removedStack,
         ItemStack newStack) {
         this.markDirty();
+        if (removedStack != null || newStack != null) {
+            this.markForUpdate();
+        }
         try {
             getProxy().getTick()
                 .alertDevice(getProxy().getNode());
