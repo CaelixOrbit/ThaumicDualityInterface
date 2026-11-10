@@ -69,6 +69,18 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
     }
 
     @Override
+    protected void copyContents(final PartP2PTunnel<?> from) {
+        super.copyContents(from);
+        if (from instanceof PartEssentiaP2PInterface fromInterface) {
+            NBTTagCompound data = new NBTTagCompound();
+            fromInterface.dualityEssentia.writeToNBT(data);
+            this.dualityEssentia.readFromNBT(data);
+            this.getConfig();
+            this.saveChanges();
+        }
+    }
+
+    @Override
     protected void copySettings(final PartP2PTunnel<?> from) {
         if (from instanceof PartEssentiaP2PInterface fromInterface) {
             DualityInterface newDuality = this.duality;
