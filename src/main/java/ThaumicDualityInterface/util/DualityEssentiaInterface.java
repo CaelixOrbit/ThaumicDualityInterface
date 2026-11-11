@@ -219,6 +219,8 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
     }
 
     private IMEMonitor<AEEssentiaStack> getEssentiaGrid() {
+        if (!this.gridProxy.isActive()) return null;
+
         try {
             return (IMEMonitor<AEEssentiaStack>) gridProxy.getStorage()
                 .getMEMonitor(ESSENTIA_STACK_TYPE);
