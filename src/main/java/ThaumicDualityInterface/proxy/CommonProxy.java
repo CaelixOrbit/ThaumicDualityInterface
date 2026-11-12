@@ -2,11 +2,13 @@ package ThaumicDualityInterface.proxy;
 
 import ThaumicDualityInterface.Tags;
 import ThaumicDualityInterface.ThaumicDualityInterface;
+import ThaumicDualityInterface.loader.ItemAndBlockHolder;
 import ThaumicDualityInterface.network.CPacketEssentiaButtonUpdate;
 import ThaumicDualityInterface.network.CPacketSwitchEssentiaGuis;
 import ThaumicDualityInterface.network.SPacketEssentiaButtonUpdate;
 import ThaumicDualityInterface.network.SPacketEssentiaUpdate;
 import ThaumicDualityInterface.network.wrapper.TDINetworkWrapper;
+import appeng.api.config.Upgrades;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -44,7 +46,30 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {}
 
-    public void postInit(FMLPostInitializationEvent event) {}
+    public void postInit(FMLPostInitializationEvent event) {
+        Upgrades.PATTERN_CAPACITY.registerItem(ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(), 3);
+        Upgrades.PATTERN_CAPACITY.registerItem(ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack(), 3);
+        Upgrades.PATTERN_CAPACITY.registerItem(ItemAndBlockHolder.PART_ESSENTIA_P2P_INTERFACE.stack(), 3);
+
+        Upgrades.CRAFTING.registerItem(ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(), 1);
+        Upgrades.CRAFTING.registerItem(ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack(), 1);
+        Upgrades.CRAFTING.registerItem(ItemAndBlockHolder.PART_ESSENTIA_P2P_INTERFACE.stack(), 1);
+
+        Upgrades.ADVANCED_BLOCKING.registerItem(ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(), 1);
+        Upgrades.ADVANCED_BLOCKING.registerItem(ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack(), 1);
+
+        Upgrades.LOCK_CRAFTING.registerItem(ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(), 1);
+        Upgrades.LOCK_CRAFTING.registerItem(ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack(), 1);
+        Upgrades.LOCK_CRAFTING.registerItem(ItemAndBlockHolder.PART_ESSENTIA_P2P_INTERFACE.stack(), 1);
+
+        Upgrades.FUZZY.registerItem(ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(), 3);
+        Upgrades.FUZZY.registerItem(ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack(), 3);
+        Upgrades.FUZZY.registerItem(ItemAndBlockHolder.PART_ESSENTIA_P2P_INTERFACE.stack(), 3);
+
+        Upgrades.FAKE_CRAFTING.registerItem(ItemAndBlockHolder.BLOCK_ESSENTIA_INTERFACE.stack(), 1);
+        Upgrades.FAKE_CRAFTING.registerItem(ItemAndBlockHolder.PART_ESSENTIA_INTERFACE.stack(), 1);
+        Upgrades.FAKE_CRAFTING.registerItem(ItemAndBlockHolder.PART_ESSENTIA_P2P_INTERFACE.stack(), 1);
+    }
 
     public void serverStarting(FMLServerStartingEvent event) {}
 }
