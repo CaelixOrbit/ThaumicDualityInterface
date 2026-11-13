@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,11 +18,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.util.DualityEssentiaInterface;
+import appeng.api.config.LockCraftingMode;
 import appeng.api.networking.crafting.ICraftingPatternDetails;
 import appeng.api.parts.IPart;
 import appeng.api.storage.data.IAEStack;
 import appeng.helpers.DualityInterface;
 import appeng.helpers.IInterfaceHost;
+import appeng.util.ScheduledReason;
 import appeng.util.inv.MEInventoryCrafting;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
@@ -30,6 +34,15 @@ public abstract class MixinDualityInterface {
     @Shadow
     @Final
     private IInterfaceHost iHost;
+
+    @Shadow
+    private ScheduledReason scheduledReason;
+
+    @Shadow
+    public abstract LockCraftingMode getCraftingLockedReason();
+
+    @Shadow
+    private void onPushPatternSuccess(TileEntity te, ForgeDirection s, ICraftingPatternDetails pattern) {}
 
     @Inject(method = { "readConfig", "onChangeInventory" }, at = @At("RETURN"), remap = false)
     private void wakeEssentiaTicking(CallbackInfo ci) {
@@ -63,6 +76,11 @@ public abstract class MixinDualityInterface {
             }
         }
         if (!extractedEssentia.isEmpty()) {
+            if (!containsItemsOrFluids && this.getCraftingLockedReason() != LockCraftingMode.NONE) {
+                this.scheduledReason = ScheduledReason.LOCK_MODE;
+                cir.setReturnValue(false);
+                return;
+            }
             DualityEssentiaInterface essentiaBrain = ((IDualEssentiaHost) this.iHost).getDualityEssentia();
             if (!essentiaBrain.canInjectIntoCraftingBuffer(extractedEssentia)) {
                 cir.setReturnValue(false);
@@ -71,6 +89,7 @@ public abstract class MixinDualityInterface {
             if (!containsItemsOrFluids) {
                 for (AEEssentiaStack e : extractedEssentia) essentiaBrain.injectIntoCraftingBuffer(e.copy());
                 essentiaBrain.saveChanges();
+                this.onPushPatternSuccess(null, ForgeDirection.UNKNOWN, patternDetails);
                 cir.setReturnValue(true);
             }
         }
