@@ -1,5 +1,7 @@
 package ThaumicDualityInterface.mixin;
 
+import static thaumicenergistics.common.storage.AEEssentiaStackType.ESSENTIA_STACK_TYPE;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,8 @@ import appeng.api.parts.IPart;
 import appeng.api.storage.data.IAEStack;
 import appeng.helpers.DualityInterface;
 import appeng.helpers.IInterfaceHost;
+import appeng.me.GridAccessException;
+import appeng.me.cache.NetworkMonitor;
 import appeng.util.ScheduledReason;
 import appeng.util.inv.MEInventoryCrafting;
 import thaumicenergistics.common.storage.AEEssentiaStack;
@@ -39,6 +43,9 @@ public abstract class MixinDualityInterface {
     private ScheduledReason scheduledReason;
 
     @Shadow
+    private List<IAEStack<?>> unlockStacks;
+
+    @Shadow
     public abstract LockCraftingMode getCraftingLockedReason();
 
     @Shadow
@@ -49,6 +56,37 @@ public abstract class MixinDualityInterface {
         if (this.iHost instanceof IPart && this.iHost instanceof IDualEssentiaHost) {
             ((IDualEssentiaHost) this.iHost).getDualityEssentia()
                 .wakeDevice();
+        }
+    }
+
+    @Inject(method = "addInterception", at = @At("RETURN"), remap = false)
+    private void addEssentiaInterception(CallbackInfo ci) {
+        if (!(this.iHost instanceof IDualEssentiaHost) || this.unlockStacks == null) return;
+        for (IAEStack<?> unlockStack : this.unlockStacks) {
+            if (unlockStack instanceof AEEssentiaStack) {
+                DualityInterface duality = (DualityInterface) (Object) this;
+                try {
+                    if (duality.getProxy()
+                        .getStorage()
+                        .getMEMonitor(ESSENTIA_STACK_TYPE) instanceof NetworkMonitor<?>monitor) {
+                        monitor.addStorageInterceptor(duality);
+                    }
+                } catch (GridAccessException ignored) {}
+                return;
+            }
+        }
+    }
+
+    @Inject(method = "shouldRemoveInterceptor", at = @At("RETURN"), cancellable = true, remap = false)
+    private void keepEssentiaInterception(IAEStack<?> stack, CallbackInfoReturnable<Boolean> cir) {
+        if (!(this.iHost instanceof IDualEssentiaHost) || !(stack instanceof AEEssentiaStack)) return;
+        if (this.unlockStacks != null) {
+            for (IAEStack<?> unlockStack : this.unlockStacks) {
+                if (unlockStack instanceof AEEssentiaStack) {
+                    cir.setReturnValue(false);
+                    return;
+                }
+            }
         }
     }
 
