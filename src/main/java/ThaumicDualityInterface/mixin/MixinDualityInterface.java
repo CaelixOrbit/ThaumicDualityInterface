@@ -114,6 +114,15 @@ public abstract class MixinDualityInterface {
             }
         }
         if (!extractedEssentia.isEmpty()) {
+            if (!containsItemsOrFluids) {
+                DualityInterface duality = (DualityInterface) (Object) this;
+                if (!duality.getProxy()
+                    .isActive() || duality.craftingList == null || !duality.craftingList.contains(patternDetails)) {
+                    this.scheduledReason = ScheduledReason.SOMETHING_STUCK;
+                    cir.setReturnValue(false);
+                    return;
+                }
+            }
             if (!containsItemsOrFluids && this.getCraftingLockedReason() != LockCraftingMode.NONE) {
                 this.scheduledReason = ScheduledReason.LOCK_MODE;
                 cir.setReturnValue(false);
