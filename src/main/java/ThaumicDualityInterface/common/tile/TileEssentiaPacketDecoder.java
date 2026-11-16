@@ -307,7 +307,11 @@ public class TileEssentiaPacketDecoder extends AENetworkTile
 
     @Override
     public boolean takeFromContainer(Aspect tag, int amount) {
-        return this.takeEssentia(tag, amount, ForgeDirection.UNKNOWN) == amount;
+        if (!this.doesContainerContainAmount(tag, amount)) {
+            return false;
+        }
+        this.takeEssentia(tag, amount, ForgeDirection.UNKNOWN);
+        return true;
     }
 
     @Override
