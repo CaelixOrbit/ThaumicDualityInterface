@@ -10,6 +10,7 @@ import net.minecraft.inventory.IInventory;
 
 import ThaumicDualityInterface.ThaumicDualityInterface;
 import ThaumicDualityInterface.common.item.ItemEssentiaPacket;
+import ThaumicDualityInterface.inventory.AEEssentiaInventory;
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.inventory.slot.OptionalEssentiaSlotFakeTypeOnly;
 import ThaumicDualityInterface.network.SPacketEssentiaUpdate;
@@ -59,20 +60,13 @@ public class ContainerEssentiaInterface extends ContainerSubGui implements IOpti
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
         Map<Integer, AEEssentiaStack> tmp = new HashMap<>();
-        for (int i = 0; i < tile.getInternalEssentia()
-            .getSlots(); i++) {
-            tmp.put(
-                i,
-                tile.getInternalEssentia()
-                    .getEssentiaInSlot(i));
+        AEEssentiaInventory essentiaInv = tile.getInternalEssentia();
+        IInventory config = tile.getConfig();
+        for (int i = 0; i < essentiaInv.getSlots(); i++) {
+            tmp.put(i, essentiaInv.getEssentiaInSlot(i));
         }
-        for (int i = 0; i < tile.getConfig()
-            .getSizeInventory(); i++) {
-            tmp.put(
-                i + 100,
-                ItemEssentiaPacket.getEssentiaAEStack(
-                    tile.getConfig()
-                        .getStackInSlot(i)));
+        for (int i = 0; i < config.getSizeInventory(); i++) {
+            tmp.put(i + 100, ItemEssentiaPacket.getEssentiaAEStack(config.getStackInSlot(i)));
         }
         for (final Object g : this.crafters) {
             if (g instanceof EntityPlayer) {
