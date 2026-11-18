@@ -75,7 +75,7 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
             NBTTagCompound data = new NBTTagCompound();
             fromInterface.dualityEssentia.writeToNBT(data);
             this.dualityEssentia.readFromNBT(data);
-            this.getConfig();
+            Util.mirrorEssentiaToPacket(this.config, this.dualityEssentia.getConfig());
             this.saveChanges();
         }
     }
@@ -291,7 +291,6 @@ public class PartEssentiaP2PInterface extends PartP2PInterface implements IDualE
 
     @Override
     public AppEngInternalAEInventory getConfig() {
-        Util.mirrorEssentiaToPacket(config, dualityEssentia.getConfig());
         return config;
     }
 

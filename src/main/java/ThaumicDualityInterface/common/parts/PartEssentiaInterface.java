@@ -16,7 +16,6 @@ import ThaumicDualityInterface.inventory.IAEEssentiaTank;
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.loader.ItemAndBlockHolder;
 import ThaumicDualityInterface.util.DualityEssentiaInterface;
-import ThaumicDualityInterface.util.Util;
 import appeng.api.config.Actionable;
 import appeng.api.config.Upgrades;
 import appeng.api.networking.IGridNode;
@@ -85,7 +84,6 @@ public class PartEssentiaInterface extends PartInterface implements IDualEssenti
 
     @Override
     public AppEngInternalAEInventory getConfig() {
-        Util.mirrorEssentiaToPacket(this.config, essentiaDuality.getConfig());
         return config;
     }
 
