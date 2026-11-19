@@ -171,7 +171,8 @@ public class TileEssentiaPacketDecoder extends AENetworkTile
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return inventory.isUseableByPlayer(player);
+        return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this
+            && player.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
     }
 
     @Override
