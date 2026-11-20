@@ -53,9 +53,11 @@ public abstract class MixinDualityInterface {
 
     @Inject(method = { "readConfig", "onChangeInventory" }, at = @At("RETURN"), remap = false)
     private void wakeEssentiaTicking(CallbackInfo ci) {
-        if (this.iHost instanceof IPart && this.iHost instanceof IDualEssentiaHost) {
-            ((IDualEssentiaHost) this.iHost).getDualityEssentia()
-                .wakeDevice();
+        if (this.iHost instanceof IDualEssentiaHost) {
+            DualityEssentiaInterface essentiaBrain = ((IDualEssentiaHost) this.iHost).getDualityEssentia();
+            if (this.iHost instanceof IPart || essentiaBrain.hasWorkToDo()) {
+                essentiaBrain.wakeDevice();
+            }
         }
     }
 

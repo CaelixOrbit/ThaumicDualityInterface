@@ -234,7 +234,7 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
         return 0;
     }
 
-    private boolean hasWorkToDo() {
+    public boolean hasWorkToDo() {
         for (AEEssentiaStack requiredWork : this.requireWork) {
             if (requiredWork != null) {
                 return true;
