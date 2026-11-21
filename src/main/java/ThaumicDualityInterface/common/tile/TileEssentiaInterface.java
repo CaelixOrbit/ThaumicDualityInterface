@@ -17,6 +17,7 @@ import ThaumicDualityInterface.inventory.AEEssentiaInventory;
 import ThaumicDualityInterface.inventory.IAEEssentiaTank;
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.loader.ItemAndBlockHolder;
+import ThaumicDualityInterface.util.DualHostSettings;
 import ThaumicDualityInterface.util.DualityEssentiaInterface;
 import appeng.api.config.Actionable;
 import appeng.api.config.Settings;
@@ -35,6 +36,7 @@ import appeng.tile.TileEvent;
 import appeng.tile.events.TileEventType;
 import appeng.tile.inventory.AppEngInternalAEInventory;
 import appeng.tile.misc.TileInterface;
+import appeng.util.SettingsFrom;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -181,6 +183,23 @@ public class TileEssentiaInterface extends TileInterface
     @Override
     public AppEngInternalAEInventory getConfig() {
         return config;
+    }
+
+    @Override
+    public void uploadSettings(SettingsFrom from, NBTTagCompound compound) {
+        super.uploadSettings(from, compound);
+        DualHostSettings.uploadSettings(this, compound);
+        this.markForUpdate();
+    }
+
+    @Override
+    public NBTTagCompound downloadSettings(SettingsFrom from) {
+        NBTTagCompound output = super.downloadSettings(from);
+        if (output == null) {
+            output = new NBTTagCompound();
+        }
+        DualHostSettings.downloadSettings(this, output);
+        return output;
     }
 
     @Override

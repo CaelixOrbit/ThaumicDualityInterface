@@ -15,6 +15,7 @@ import ThaumicDualityInterface.inventory.AEEssentiaInventory;
 import ThaumicDualityInterface.inventory.IAEEssentiaTank;
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.loader.ItemAndBlockHolder;
+import ThaumicDualityInterface.util.DualHostSettings;
 import ThaumicDualityInterface.util.DualityEssentiaInterface;
 import appeng.api.config.Actionable;
 import appeng.api.config.Upgrades;
@@ -28,6 +29,7 @@ import appeng.helpers.ICustomButtonDataObject;
 import appeng.helpers.ICustomButtonProvider;
 import appeng.parts.misc.PartInterface;
 import appeng.tile.inventory.AppEngInternalAEInventory;
+import appeng.util.SettingsFrom;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -85,6 +87,21 @@ public class PartEssentiaInterface extends PartInterface implements IDualEssenti
     @Override
     public AppEngInternalAEInventory getConfig() {
         return config;
+    }
+
+    @Override
+    public void uploadSettings(SettingsFrom from, NBTTagCompound compound) {
+        super.uploadSettings(from, compound);
+        DualHostSettings.uploadSettings(this, compound);
+        this.getHost()
+            .markForUpdate();
+    }
+
+    @Override
+    public NBTTagCompound downloadSettings(SettingsFrom from) {
+        NBTTagCompound output = super.downloadSettings(from);
+        DualHostSettings.downloadSettings(this, output);
+        return output;
     }
 
     @Override
