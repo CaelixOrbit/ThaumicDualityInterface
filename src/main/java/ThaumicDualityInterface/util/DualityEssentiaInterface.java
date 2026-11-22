@@ -449,7 +449,7 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
     @Override
     public int containerContains(Aspect tag) {
         if (tag == null) return 0;
-        int count = 0;
+        long count = 0;
         if (this.craftingBuffer != null) {
             for (int i = 0; i < this.craftingBuffer.getSlots(); i++) {
                 AEEssentiaStack stack = this.craftingBuffer.getEssentiaInSlot(i);
@@ -457,7 +457,7 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
             }
         }
         count += this.tanks.containerContains(tag);
-        return count;
+        return (int) Math.min(count, Integer.MAX_VALUE);
     }
 
     @Override
@@ -477,7 +477,7 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
             for (int i = 0; i < this.craftingBuffer.getSlots(); i++) {
                 AEEssentiaStack stack = this.craftingBuffer.getEssentiaInSlot(i);
                 if (stack != null && stack.getStackSize() > 0 && stack.getAspect() != null) {
-                    list.add(stack.getAspect(), (int) stack.getStackSize());
+                    addAspectWithSaturation(list, stack.getAspect(), stack.getStackSize());
                 }
             }
         }
@@ -485,11 +485,17 @@ public class DualityEssentiaInterface implements IGridTickable, IStorageMonitora
         if (tankList != null && tankList.getAspects() != null) {
             for (Aspect aspect : tankList.getAspects()) {
                 if (aspect != null) {
-                    list.add(aspect, tankList.getAmount(aspect));
+                    addAspectWithSaturation(list, aspect, tankList.getAmount(aspect));
                 }
             }
         }
         return list;
+    }
+
+    private static void addAspectWithSaturation(AspectList list, Aspect aspect, long amount) {
+        long remaining = (long) Integer.MAX_VALUE - list.getAmount(aspect);
+        int amountToAdd = (int) Math.min(amount, remaining);
+        list.add(aspect, amountToAdd);
     }
 
     @Override
