@@ -14,6 +14,7 @@ import ThaumicDualityInterface.inventory.AEEssentiaInventory;
 import ThaumicDualityInterface.inventory.IDualEssentiaHost;
 import ThaumicDualityInterface.inventory.slot.OptionalEssentiaSlotFakeTypeOnly;
 import ThaumicDualityInterface.network.SPacketEssentiaUpdate;
+import appeng.api.config.SecurityPermissions;
 import appeng.container.ContainerSubGui;
 import appeng.container.slot.IOptionalSlotHost;
 import thaumicenergistics.common.storage.AEEssentiaStack;
@@ -58,6 +59,7 @@ public class ContainerEssentiaInterface extends ContainerSubGui implements IOpti
 
     @Override
     public void detectAndSendChanges() {
+        this.verifyPermissions(SecurityPermissions.BUILD, false);
         super.detectAndSendChanges();
         Map<Integer, AEEssentiaStack> tmp = new HashMap<>();
         AEEssentiaInventory essentiaInv = tile.getInternalEssentia();
